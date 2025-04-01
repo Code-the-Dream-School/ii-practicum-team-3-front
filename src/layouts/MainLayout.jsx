@@ -7,19 +7,17 @@ import Footer from "./Footer";
 
 function MainLayout() {
     return (
-        <div>
+        <>
             <header>
                 <Header />
-                <Navbar />
+                {/* <Navbar /> */}
             </header>
             <main>
                 <ScrollToTopButton />
                 <Outlet /> {/* Content of the Pages */}
             </main>
-            <footer>
-                <Footer />
-            </footer>
-        </div>
+            <Footer />
+        </>
     );
 }
 

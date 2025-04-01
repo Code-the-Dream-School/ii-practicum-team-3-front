@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 // Layouts
 import MainLayout from "../layouts/MainLayout";
@@ -23,25 +23,27 @@ import CustomWorkoutPlan from "../pages/workouts/CustomWorkoutPlan";
 
 const Router = () => {
     return (
-        <Routes>
-            <Route element={<MainLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                {/* Auth Routes */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/password/change" element={<ChangePassword />} />
-                <Route path="/password/reset" element={<ResetPassword />} />
-                {/* Workouts Routes  */}
-                <Route path="/exercises" element={<Exercises />} />
-                <Route path="/programs" element={<Programs />} />
-                <Route path="/workouts/plan" element={<WorkoutPlan />} />
-                <Route path="/workouts/custom-plan" element={<CustomWorkoutPlan />} />
-                {/* 404 Page */}
-                <Route path="*" element={<NotFound />} />
-                <Route path="/404" element={<NotFound />} />
-            </Route>
-        </Routes>
+        <BrowserRouter>
+            <Routes>
+                <Route element={<MainLayout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {/* Auth Routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/password/change" element={<ChangePassword />} />
+                    <Route path="/password/reset" element={<ResetPassword />} />
+                    {/* Workouts Routes  */}
+                    <Route path="/exercises" element={<Exercises />} />
+                    <Route path="/programs" element={<Programs />} />
+                    <Route path="/workouts/plan/:id" element={<WorkoutPlan />} />
+                    <Route path="/workouts/custom-plan/:id" element={<CustomWorkoutPlan />} />
+                    {/* 404 Page */}
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/404" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 };
 

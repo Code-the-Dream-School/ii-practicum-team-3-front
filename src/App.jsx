@@ -9,7 +9,7 @@ function App() {
   const [message, setMessage] = useState(''); 
 
   useEffect(() => {
-/*
+
     (async () => {
       const myData = await getAllData(URL)
       setMessage(myData.data);
@@ -18,7 +18,7 @@ function App() {
     return () => {
       console.log('unmounting');
     }
-*/
+
   }, []);
 
   return (

@@ -7,9 +7,7 @@ import Footer from "./Footer";
 function MainLayout() {
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <main>
         <ScrollToTopButton />
         <Outlet /> {/* Content of the Pages */}

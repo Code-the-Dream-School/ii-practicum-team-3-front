@@ -1,5 +1,5 @@
 function ResetPassword() {
-    return <h1>Reset Password Page - Under Construction</h1>;
+  return <h1>Reset Password Page</h1>;
 }
 
 export default ResetPassword;

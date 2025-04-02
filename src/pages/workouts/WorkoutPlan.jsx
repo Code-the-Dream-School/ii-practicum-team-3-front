@@ -1,5 +1,5 @@
 function WorkoutPlan() {
-    return <h1>Welcome to the Workout Plan Page!</h1>;
+  return <h1>Workout Plan</h1>;
 }
 
 export default WorkoutPlan;

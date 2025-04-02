@@ -16,35 +16,35 @@ import ResetPassword from "../pages/auth/ResetPassword";
 
 // Pages - Workouts
 import Exercises from "../pages/Exercises";
-import Programs from "../pages/Programs";
+import Workouts from "../pages/workouts/Workouts";
 import WorkoutPlan from "../pages/workouts/WorkoutPlan";
-import CustomWorkoutPlan from "../pages/workouts/CustomWorkoutPlan";
+import CreateCustomWorkoutPlan from "../pages/workouts/CreateCustomWorkoutPlan";
 
 
 const Router = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<MainLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
-                    {/* Auth Routes */}
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/password/change" element={<ChangePassword />} />
-                    <Route path="/password/reset" element={<ResetPassword />} />
-                    {/* Workouts Routes  */}
-                    <Route path="/exercises" element={<Exercises />} />
-                    <Route path="/programs" element={<Programs />} />
-                    <Route path="/workouts/plan/:id" element={<WorkoutPlan />} />
-                    <Route path="/workouts/custom-plan/:id" element={<CustomWorkoutPlan />} />
-                    {/* 404 Page */}
-                    <Route path="*" element={<NotFound />} />
-                    <Route path="/404" element={<NotFound />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/exercises" element={<Exercises />} />
+          {/* Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/password/change" element={<ChangePassword />} />
+          <Route path="/password/reset" element={<ResetPassword />} />
+          {/* Workouts Routes  */}
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/:id" element={<WorkoutPlan />} />
+          <Route path="/workouts/create" element={<CreateCustomWorkoutPlan />} />
+          {/* 404 Page */}
+          <Route path="*" element={<NotFound />} />
+          <Route path="/404" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default Router

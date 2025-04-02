@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Router from "./routes/Router";
-import { getAllData } from './util/index';
 
-const URL = 'http://localhost:8000/api/v1/';
 
 function App() {
-  
-  const [message, setMessage] = useState(''); 
-
-  useEffect(() => {
-
-    (async () => {
-      const myData = await getAllData(URL)
-      setMessage(myData.data);
-    })();
-      
-    return () => {
-      console.log('unmounting');
-    }
-
-  }, []);
+  const [message, setMessage] = useState("");
 
   return (
     <>
@@ -27,7 +11,6 @@ function App() {
       <Router />
     </>
   );
-
 }
 
-export default App
+export default App;

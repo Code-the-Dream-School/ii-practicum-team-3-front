@@ -1,7 +1,5 @@
 // import WorkoutPlan from "./WorkoutPlan";
-import { Link } from "react-router-dom";
-
-
+import { Link } from 'react-router-dom';
 
 function Workouts() {
   return (
@@ -17,7 +15,7 @@ function Workouts() {
         </li>
       </ul>
     </>
-  )
+  );
 }
 
 export default Workouts;

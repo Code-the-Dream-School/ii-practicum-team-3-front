@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
-import Header from './Header';
-import ScrollToTopButton from "../layouts/ScrollToTopButton"; 
-import Footer from "./Footer";
+import { Outlet } from 'react-router-dom';
 
+import Footer from './Footer';
+import Header from './Header';
+import ScrollToTopButton from '../layouts/ScrollToTopButton';
 
 function MainLayout() {
   return (

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   return (
     <nav>

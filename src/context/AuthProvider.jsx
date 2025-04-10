@@ -44,14 +44,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (!accessToken) {
-      console.log('No access token found, skipping refreshToken call');
+      console.error(
+        'No access token found, skipping refreshToken call',
+        error?.message || 'No error'
+      );
       return;
     }
 
     refreshToken();
-    const interval = setInterval(refreshToken, 60 * 1000);
+    const interval = setInterval(refreshToken, 15 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [refreshToken, accessToken]);
+  }, [refreshToken, accessToken, error]);
 
   return (
     <AuthContext.Provider value={{ user, accessToken, login, logout, error }}>

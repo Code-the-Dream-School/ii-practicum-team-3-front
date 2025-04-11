@@ -5,8 +5,11 @@ import { loginRequest, logoutRequest, refreshTokenRequest } from '../api/authApi
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem('user')) || null;
+  });
+
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken') || null);
   const [error, setError] = useState(null);
 
   const login = async (email, password) => {
@@ -14,6 +17,8 @@ export const AuthProvider = ({ children }) => {
       const data = await loginRequest(email, password);
       setUser(data.user);
       setAccessToken(data.accessToken);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('accessToken', data.accessToken);
     } catch (error) {
       console.error('Login failed:', error.message);
       setError(error.message);
@@ -25,6 +30,8 @@ export const AuthProvider = ({ children }) => {
       await logoutRequest();
       setUser(null);
       setAccessToken(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('accessToken');
     } catch (error) {
       console.error('Logout failed:', error.message);
       setError('Failed to log out. Please try again.');
@@ -35,19 +42,18 @@ export const AuthProvider = ({ children }) => {
     try {
       const newAccessToken = await refreshTokenRequest();
       setAccessToken(newAccessToken);
+      localStorage.setItem('accessToken', newAccessToken);
     } catch (error) {
       console.error('Token refresh failed:', error.message);
       setError(error.message);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('user');
       logout();
     }
   }, [logout]);
 
   useEffect(() => {
     if (!accessToken) {
-      console.error(
-        'No access token found, skipping refreshToken call',
-        error?.message || 'No error'
-      );
       return;
     }
 

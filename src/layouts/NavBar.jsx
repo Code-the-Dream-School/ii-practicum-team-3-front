@@ -1,7 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../context/AuthProvider';
 
 function Navbar() {
-  const isAuthenticated = true;
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   return (
     <nav>
@@ -9,7 +17,7 @@ function Navbar() {
         <li>
           <Link to="/">Home</Link>
         </li>
-        {isAuthenticated ? (
+        {user ? (
           <>
             <li>
               <Link to="/workouts">Workouts</Link>
@@ -21,7 +29,7 @@ function Navbar() {
               <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </>
         ) : (
@@ -29,11 +37,9 @@ function Navbar() {
             <li>
               <Link to="/workouts">Workouts (view only)</Link>
             </li>{' '}
-            {/* view only link*/}
             <li>
               <Link to="/exercises">Exercises (view only)</Link>
             </li>{' '}
-            {/* view only link*/}
             <li>
               <Link to="/login">Login</Link>
             </li>

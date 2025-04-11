@@ -46,11 +46,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Token refresh failed:', error.message);
       setError(error.message);
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('user');
-      logout();
     }
-  }, [logout]);
+  }, []);
 
   useEffect(() => {
     if (!accessToken) {

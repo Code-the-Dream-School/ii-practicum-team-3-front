@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-import { loginRequest, logoutRequest, refreshTokenRequest } from '../api/authApi';
+import { loginRequest, logoutRequest, refreshTokenRequest, registerRequest } from '../api/authApi';
 
 const AuthContext = createContext(null);
 
@@ -22,6 +22,17 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Login failed:', error.message);
       setError(error.message);
+    }
+  };
+
+  const register = async ({ firstName, lastName, email, password }) => {
+    try {
+      await registerRequest({ firstName, lastName, email, password });
+      setError(null);
+    } catch (error) {
+      console.error('Registration failed:', error.message);
+      setError(error.message);
+      throw error;
     }
   };
 
@@ -60,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   }, [refreshToken, accessToken, error]);
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, login, logout, error }}>
+    <AuthContext.Provider value={{ user, accessToken, login, logout, register, error }}>
       {children}
     </AuthContext.Provider>
   );

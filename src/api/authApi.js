@@ -29,6 +29,27 @@ export const loginRequest = async (email, password) => {
   }
 };
 
+export const registerRequest = async ({ firstName, lastName, email, password }) => {
+  try {
+    const res = await fetch('/api/v1/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ firstName, lastName, email, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Registration failed');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(`Register request failed: ${error.message}`);
+  }
+};
+
 export const logoutRequest = async () => {
   try {
     const res = await fetch('/api/v1/auth/logout', {

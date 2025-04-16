@@ -7,27 +7,45 @@ import AuthButton from '../../components/Form/AuthButton';
 import ErrorAlert from '../../components/Form/ErrorAlert';
 import InputField from '../../components/Form/InputField';
 import { useAuth } from '../../context/AuthProvider';
+import { useClearAuthError } from '../../hooks/useClearAuthError';
 
 function Register() {
-  const { register, error } = useAuth();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { register, error, setError } = useAuth();
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
   const [submitting, setSubmitting] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
+  useClearAuthError();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setError('');
+    if (name === 'password' || name === 'confirmPassword') {
+      setPasswordError('');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
+    const { firstName, lastName, email, password, confirmPassword } = form;
+
     if (password !== confirmPassword) {
       setPasswordError('Passwords do not match');
+      setSubmitting(false);
       return;
     }
     setPasswordError('');
-    setSubmitting(true);
+
     try {
       await register({ firstName, lastName, email, password });
       navigate('/login');
@@ -47,6 +65,7 @@ function Register() {
         py: 5,
         px: 3.75,
         borderRadius: 2,
+        minWidth: '320px',
       }}
     >
       <Box mt={2} display="flex" flexDirection="column" alignItems="center">
@@ -60,32 +79,38 @@ function Register() {
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
           <InputField
             label="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            name="firstName"
+            value={form.firstName}
+            onChange={handleChange}
           />
           <InputField
             label="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            name="lastName"
+            value={form.lastName}
+            onChange={handleChange}
           />
           <InputField
             label="Email"
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={handleChange}
           />
           <InputField
             label="Password"
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={form.password}
+            onChange={handleChange}
           />
           <InputField
             label="Confirm Password"
+            name="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={form.confirmPassword}
+            onChange={handleChange}
           />
+
           <AuthButton submitting={submitting} text="Sign Up" />
 
           <Box mt={2} textAlign="center">

@@ -7,21 +7,26 @@ import AuthButton from '../../components/Form/AuthButton';
 import ErrorAlert from '../../components/Form/ErrorAlert';
 import InputField from '../../components/Form/InputField';
 import { useAuth } from '../../context/AuthProvider';
+import { useClearAuthError } from '../../hooks/useClearAuthError';
 
 function Login() {
-  const { login, error } = useAuth();
+  const { login, error, setError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  useClearAuthError();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+    setError('');
     try {
       await login(email, password);
       navigate('/');
     } catch (err) {
+      setError(err.message);
       console.error('Login error:', err);
     } finally {
       setSubmitting(false);
@@ -37,6 +42,7 @@ function Login() {
         py: 5,
         px: 3.75,
         borderRadius: 2,
+        minWidth: '320px',
       }}
     >
       <Box mt={2} display="flex" flexDirection="column" alignItems="center">
@@ -51,13 +57,19 @@ function Login() {
             label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError('');
+            }}
           />
           <InputField
             label="Password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError('');
+            }}
           />
           <AuthButton submitting={submitting} text="Log In" />
 

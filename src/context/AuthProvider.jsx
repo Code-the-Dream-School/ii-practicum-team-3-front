@@ -19,9 +19,11 @@ export const AuthProvider = ({ children }) => {
       setAccessToken(data.accessToken);
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('accessToken', data.accessToken);
+      setError(null);
     } catch (error) {
       console.error('Login failed:', error.message);
       setError(error.message);
+      throw error;
     }
   };
 
@@ -71,7 +73,7 @@ export const AuthProvider = ({ children }) => {
   }, [refreshToken, accessToken, error]);
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, login, logout, register, error }}>
+    <AuthContext.Provider value={{ user, accessToken, login, logout, register, error, setError }}>
       {children}
     </AuthContext.Provider>
   );

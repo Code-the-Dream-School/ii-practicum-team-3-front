@@ -1,98 +1,54 @@
-const parseErrorResponse = async (res, defaultMessage) => {
-  try {
-    const data = await res.json();
-    return data.message || defaultMessage;
-  } catch {
-    const text = await res.text();
-    return text || defaultMessage;
-  }
-};
+import customFetch from './customFetch';
 
 export const loginRequest = async (email, password) => {
   try {
-    const res = await fetch('/api/v1/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      credentials: 'include',
+    const res = await customFetch.post('/api/v1/auth/login', {
+      email,
+      password,
     });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || 'Login failed');
-    }
-
-    return data;
+    return res.data;
   } catch (error) {
-    throw new Error(`Login request failed: ${error.message}`);
+    const message = error.response?.data?.message || 'Login request failed';
+    console.error('Login request failed:', message);
+    throw new Error(message);
   }
 };
 
 export const registerRequest = async ({ firstName, lastName, email, password }) => {
   try {
-    const res = await fetch('/api/v1/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ firstName, lastName, email, password }),
+    const res = await customFetch.post('/api/v1/auth/register', {
+      firstName,
+      lastName,
+      email,
+      password,
     });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || 'Registration failed');
-    }
-
-    return data;
+    return res.data;
   } catch (error) {
-    throw new Error(`Register request failed: ${error.message}`);
+    const message = error.response?.data?.message || 'Registration request failed';
+
+    console.error('Register request failed:', message);
+    throw new Error(message);
   }
 };
 
 export const logoutRequest = async () => {
   try {
-    const res = await fetch('/api/v1/auth/logout', {
-      method: 'POST',
-      credentials: 'include',
-    });
-
-    if (!res.ok) {
-      const message = await parseErrorResponse(res, 'Logout failed');
-      throw new Error(message);
-    }
+    await customFetch.post('/api/v1/auth/logout');
   } catch (error) {
-    throw new Error(`Logout request failed: ${error.message}`);
+    console.error('Logout request failed:', error.response ? error.response.data : error.message);
+    throw new Error('Logout request failed');
   }
 };
 
 export const refreshTokenRequest = async () => {
   try {
-    const res = await fetch('/api/v1/auth/refresh', {
-      method: 'POST',
-      credentials: 'include',
-    });
-
-    if (!res.ok) {
-      const message = await parseErrorResponse(res, 'Failed to refresh token');
-      throw new Error(message);
-    }
-
-    const text = await res.text();
-    let data = {};
-
-    try {
-      data = JSON.parse(text);
-    } catch {
-      throw new Error('Invalid response format');
-    }
-
-    if (data.accessToken) {
-      return data.accessToken;
-    } else {
-      throw new Error('Access token missing');
-    }
+    const res = await customFetch.post('/api/v1/auth/refresh');
+    return res.data.accessToken;
   } catch (error) {
-    throw new Error(`Refresh token request failed: ${error.message}`);
+    console.error(
+      'Refresh token request failed:',
+      error.response ? error.response.data : error.message
+    );
+    throw new Error('Refresh token request failed');
   }
 };

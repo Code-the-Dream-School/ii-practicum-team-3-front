@@ -1,50 +1,97 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Container, Box, Typography, Link } from '@mui/material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
+import AuthButton from '../../components/Form/AuthButton';
+import ErrorAlert from '../../components/Form/ErrorAlert';
+import InputField from '../../components/Form/InputField';
 import { useAuth } from '../../context/AuthProvider';
+import { useClearAuthError } from '../../hooks/useClearAuthError';
 
 function Login() {
-  const { login, error, user } = useAuth();
+  const { login, error, setError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  useClearAuthError();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    setSubmitting(true);
+    setError('');
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+      console.error('Login error:', err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <Container
+      maxWidth="xs"
+      disableGutters
+      sx={{
+        bgcolor: 'rgba(201, 208, 202, 0.33)',
+        py: 5,
+        px: 3.75,
+        borderRadius: 2,
+        minWidth: '320px',
+      }}
+    >
+      <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+        <Typography variant="h5" gutterBottom>
+          Log In
+        </Typography>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <ErrorAlert message={error} />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+          <InputField
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError('');
+            }}
+          />
+          <InputField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError('');
+            }}
+          />
+          <AuthButton submitting={submitting} text="Log In" />
 
-        <button type="submit">Log In</button>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {user && <p style={{ color: 'green' }}>Welcome, {user.firstName}</p>}
-
-        <div>
-          <Link to="/password/reset">Forgot password?</Link>
-        </div>
-      </form>
-    </div>
+          <Box mt={2} textAlign="center">
+            <Link
+              component={RouterLink}
+              to="/password/reset"
+              variant="body2"
+              sx={{
+                color: '#000',
+                textDecoration: 'none',
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
+            >
+              Forgot password?
+            </Link>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

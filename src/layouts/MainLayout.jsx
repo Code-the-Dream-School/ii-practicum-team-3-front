@@ -1,13 +1,14 @@
-import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
-import Header from "./Header";
-import Footer from "./Footer";
-import ScrollToTopButton from "./ScrollToTopButton";
+import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
+
+import Footer from './Footer';
+import Header from './Header';
+import ScrollToTopButton from './ScrollToTopButton';
 
 function MainLayout() {
   return (
     <>
-      <Box sx={{ height: "120px" }}>
+      <Box sx={{ height: '120px' }}>
         <Header />
       </Box>
 
@@ -15,10 +16,10 @@ function MainLayout() {
       <Box
         component="main"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "calc(100vh - 200px)", // 120 header + 80 footer
-          overflow: "auto",
+          display: 'flex',
+          flexDirection: 'column',
+          height: 'calc(100vh - 200px)', // 120 header + 80 footer
+          overflow: 'auto',
         }}
       >
         <ScrollToTopButton />
@@ -27,7 +28,7 @@ function MainLayout() {
         </Box>
       </Box>
 
-      <Box sx={{ height: "80px" }}>
+      <Box sx={{ height: '80px' }}>
         <Footer />
       </Box>
     </>

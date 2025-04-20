@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 import { Container, Box, Typography, Link } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import AuthButton from '../../components/Form/AuthButton';
@@ -15,6 +17,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   useClearAuthError();
 
@@ -38,7 +41,7 @@ function Login() {
       maxWidth="xs"
       disableGutters
       sx={{
-        bgcolor: 'rgba(201, 208, 202, 0.33)',
+        bgcolor: alpha(theme.palette.primary.main, 0.05),
         py: 5,
         px: 3.75,
         borderRadius: 2,
@@ -79,7 +82,7 @@ function Login() {
               to="/password/reset"
               variant="body2"
               sx={{
-                color: '#000',
+                color: theme.palette.primary.main,
                 textDecoration: 'none',
                 '&:hover': {
                   textDecoration: 'underline',

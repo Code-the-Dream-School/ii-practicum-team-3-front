@@ -49,6 +49,7 @@ const baseTheme = createTheme({
           boxShadow: 'none',
           transition: 'all 0.3s',
           '&:hover': {
+            backgroundColor: '#BBF246',
             opacity: 0.8,
           },
         },

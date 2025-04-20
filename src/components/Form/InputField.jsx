@@ -13,6 +13,7 @@ const InputField = ({ label, name, value, onChange, type = 'text', required = tr
       required={required}
       sx={{
         bgcolor: '#D9D9D9',
+        borderRadius: 1,
         '& label.Mui-focused': { color: '#000' },
         '& .MuiOutlinedInput-root': {
           '&.Mui-focused fieldset': { borderColor: '#000' },

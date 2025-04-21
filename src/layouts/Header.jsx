@@ -33,7 +33,7 @@ function Header() {
       >
         <Toolbar
           sx={{
-            minHeight: { xs: 56, md: 80 },
+            minHeight: { xs: 56, sm: 80 },
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -41,16 +41,21 @@ function Header() {
         >
           <Box sx={{ flex: '1' }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <Box component="img" src={logo} alt="Fitness App Logo" sx={{ height: 35 }} />
+              <Box
+                component="img"
+                src={logo}
+                alt="Fitness App Logo"
+                sx={{ height: { xs: 45, sm: 50 } }}
+              />
             </Link>
           </Box>
-          <Box sx={{ flex: '2', display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+          <Box sx={{ flex: '2', display: { xs: 'none', sm: 'flex' }, justifyContent: 'center' }}>
             <Navbar />
           </Box>
           <Box
             sx={{
               flex: '1',
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', sm: 'flex' },
               justifyContent: 'flex-end',
               gap: '1rem',
             }}
@@ -72,13 +77,13 @@ function Header() {
           </Box>
           {/* Burger Icon */}
           <IconButton
-            sx={{ display: { xs: 'block', md: 'none' } }}
+            sx={{ display: { xs: 'block', sm: 'none' } }}
             edge="start"
             color="inherit"
             aria-label="menu"
             onClick={handleDrawerToggle}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ fontSize: 36 }} />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -97,7 +102,7 @@ function Header() {
         >
           <Box sx={{ mb: 4, display: 'flex', justifyContent: 'start', paddingLeft: '1rem' }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <Box component="img" src={logo} alt="Logo" sx={{ height: { xs: 35, md: 35 } }} />
+              <Box component="img" src={logo} alt="Logo" sx={{ height: { xs: 50 } }} />
             </Link>
           </Box>
           <Navbar vertical />

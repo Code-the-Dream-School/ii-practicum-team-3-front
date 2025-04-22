@@ -8,17 +8,16 @@ import ScrollToTopButton from './ScrollToTopButton';
 function MainLayout() {
   return (
     <>
-      <Box sx={{ height: '120px' }}>
-        <Header />
-      </Box>
+      {/* Header without fixed height */}
+      <Header />
 
-      {/* main content takes the rest of the screen minus 200px */}
+      {/* Main content with adjusted height */}
       <Box
         component="main"
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: 'calc(100vh - 200px)', // 120 header + 80 footer
+          height: 'calc(100vh - 80px)', // only footer is subtracted
           overflow: 'auto',
         }}
       >
@@ -28,6 +27,7 @@ function MainLayout() {
         </Box>
       </Box>
 
+      {/* Fixed height for Footer */}
       <Box sx={{ height: '80px' }}>
         <Footer />
       </Box>

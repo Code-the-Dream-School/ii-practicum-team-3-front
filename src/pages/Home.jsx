@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <Box>
+    <Box sx={{ m: 0, p: 0 }}>
       {/* Hero section */}
       <Box sx={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
         {/* Green base */}

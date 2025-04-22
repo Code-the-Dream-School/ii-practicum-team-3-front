@@ -1,49 +1,48 @@
-import { Link } from 'react-router-dom';
+import { Box, Button } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
 
-function Navbar() {
-  const isAuthenticated = true;
+import { useAuth } from '../context/AuthProvider';
+
+function Navbar({ vertical = false }) {
+  const { user } = useAuth();
+  const location = useLocation();
+
+  const navItems = [
+    { text: 'Workouts', link: '/workouts' },
+    { text: 'Exercises', link: '/exercises' },
+    ...(user ? [{ text: 'Profile', link: '/profile' }] : []),
+  ];
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        {isAuthenticated ? (
-          <>
-            <li>
-              <Link to="/workouts">Workouts</Link>
-            </li>
-            <li>
-              <Link to="/exercises">Exercises</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/logout">Logout</Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/workouts">Workouts (view only)</Link>
-            </li>{' '}
-            {/* view only link*/}
-            <li>
-              <Link to="/exercises">Exercises (view only)</Link>
-            </li>{' '}
-            {/* view only link*/}
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </>
-        )}
-      </ul>
-    </nav>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: vertical ? 'column' : 'row',
+        gap: '1rem',
+        alignItems: vertical ? 'start' : 'center',
+      }}
+    >
+      {navItems.map((item) => {
+        const isActive = location.pathname.startsWith(item.link);
+        return (
+          <Button
+            key={item.text}
+            component={Link}
+            to={item.link}
+            sx={{
+              textTransform: 'uppercase',
+              boxShadow: isActive ? '0px 4px 10px rgba(0, 0, 0, 0.25)' : 'none',
+              transform: isActive ? 'translateY(2px)' : 'none',
+              '&:hover': {
+                backgroundColor: isActive ? 'secondary.main' : '#BBF246',
+              },
+            }}
+          >
+            {item.text}
+          </Button>
+        );
+      })}
+    </Box>
   );
 }
 

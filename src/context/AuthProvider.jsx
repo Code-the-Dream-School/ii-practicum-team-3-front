@@ -1,6 +1,12 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-import { loginRequest, logoutRequest, refreshTokenRequest, registerRequest } from '../api/authApi';
+import {
+  loginRequest,
+  logoutRequest,
+  refreshTokenRequest,
+  registerRequest,
+  forgotPasswordRequest,
+} from '../api/authApi';
 
 const AuthContext = createContext(null);
 
@@ -62,6 +68,17 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  const forgotPassword = async (email) => {
+    try {
+      await forgotPasswordRequest(email);
+      setError(null);
+    } catch (error) {
+      console.error('Forgot password request failed:', error.message);
+      setError(error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     if (!accessToken) {
       return;
@@ -73,7 +90,17 @@ export const AuthProvider = ({ children }) => {
   }, [refreshToken, accessToken, error]);
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, login, logout, register, error, setError }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        accessToken,
+        login,
+        logout,
+        register,
+        forgotPassword,
+        setError,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

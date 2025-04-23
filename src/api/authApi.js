@@ -52,3 +52,25 @@ export const refreshTokenRequest = async () => {
     throw new Error('Refresh token request failed');
   }
 };
+
+export const forgotPasswordRequest = async (email) => {
+  try {
+    const res = await customFetch.post('/api/v1/auth/forgot-password', { email });
+    return res.data;
+  } catch (error) {
+    const message = error.response?.data?.message || 'Forgot password request failed';
+    throw new Error(message);
+  }
+};
+
+export const resetPasswordRequest = async (token, newPassword) => {
+  try {
+    const res = await customFetch.post(`/api/v1/auth/reset-password/${token}`, {
+      newPassword,
+    });
+    return res.data;
+  } catch (error) {
+    const message = error.response?.data?.message || 'Failed to reset password';
+    throw new Error(message);
+  }
+};

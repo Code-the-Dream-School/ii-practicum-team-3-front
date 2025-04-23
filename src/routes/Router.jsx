@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // Layouts
 import MainLayout from '../layouts/MainLayout';
 // Pages- Auth
-import ChangePassword from '../pages/auth/ChangePassword';
+import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ResetPassword from '../pages/auth/ResetPassword';
@@ -28,8 +28,8 @@ const Router = () => {
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/password/change" element={<ChangePassword />} />
-          <Route path="/password/reset" element={<ResetPassword />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           {/* Workouts Routes  */}
           <Route path="/workouts" element={<Workouts />} />
           <Route path="/workouts/:id" element={<WorkoutPlan />} />

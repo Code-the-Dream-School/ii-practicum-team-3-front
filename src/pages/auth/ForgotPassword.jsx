@@ -28,7 +28,7 @@ function ForgotPassword() {
 
     try {
       await forgotPassword(email);
-      setSuccessMessage('Password reset link has been sent to your email.');
+      setSuccessMessage('Reset link sent — check your email.');
       setEmail('');
     } catch (err) {
       setError(err.message);
@@ -39,57 +39,67 @@ function ForgotPassword() {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      disableGutters
+    <Box
       sx={{
-        bgcolor: alpha(theme.palette.primary.main, 0.05),
-        py: 5,
-        px: 3.75,
-        borderRadius: 2,
-        minWidth: '320px',
+        minHeight: 'calc(100vh - 130px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: alpha(theme.palette.primary.main, 0.02),
       }}
     >
-      <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h5" gutterBottom>
-          Forgot Password
-        </Typography>
+      <Container
+        maxWidth="xs"
+        disableGutters
+        sx={{
+          bgcolor: alpha(theme.palette.primary.main, 0.05),
+          py: 5,
+          px: 3.75,
+          borderRadius: 2,
+          minWidth: '320px',
+        }}
+      >
+        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+          <Typography variant="h5" gutterBottom>
+            Forgot Password
+          </Typography>
 
-        {error && <ErrorAlert message={error} />}
-        {successMessage && <ErrorAlert message={successMessage} severity="success" />}
+          {error && <ErrorAlert message={error} />}
+          {successMessage && <ErrorAlert message={successMessage} severity="success" />}
 
-        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <InputField
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError('');
-            }}
-          />
-
-          <AuthButton submitting={submitting} text="Send Reset Link" />
-
-          <Box mt={2} textAlign="center">
-            <Link
-              component={RouterLink}
-              to="/login"
-              variant="body2"
-              sx={{
-                color: theme.palette.primary.main,
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
-                },
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+            <InputField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError('');
               }}
-            >
-              Back to login
-            </Link>
+            />
+
+            <AuthButton submitting={submitting} text="Send Reset Link" />
+
+            <Box mt={2} textAlign="center">
+              <Link
+                component={RouterLink}
+                to="/login"
+                variant="body2"
+                sx={{
+                  color: theme.palette.primary.main,
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Back to login
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

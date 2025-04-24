@@ -44,41 +44,51 @@ function ResetPassword() {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      disableGutters
+    <Box
       sx={{
-        bgcolor: alpha(theme.palette.primary.main, 0.05),
-        py: 5,
-        px: 3.75,
-        borderRadius: 2,
-        minWidth: '320px',
+        minHeight: 'calc(100vh - 130px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: alpha(theme.palette.primary.main, 0.02),
       }}
     >
-      <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h5" gutterBottom>
-          Reset Password
-        </Typography>
+      <Container
+        maxWidth="xs"
+        disableGutters
+        sx={{
+          bgcolor: alpha(theme.palette.primary.main, 0.05),
+          py: 5,
+          px: 3.75,
+          borderRadius: 2,
+          minWidth: '320px',
+        }}
+      >
+        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+          <Typography variant="h5" gutterBottom>
+            Reset Password
+          </Typography>
 
-        <ErrorAlert message={error} />
+          <ErrorAlert message={error} />
 
-        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <InputField
-            label="New Password"
-            type="password"
-            value={newPassword}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <InputField
-            label="Confirm New Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <AuthButton submitting={submitting} text="Reset Password" />
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+            <InputField
+              label="New Password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputField
+              label="Confirm New Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <AuthButton submitting={submitting} text="Reset Password" />
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

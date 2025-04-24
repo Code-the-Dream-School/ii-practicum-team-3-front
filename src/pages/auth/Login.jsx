@@ -37,64 +37,74 @@ function Login() {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      disableGutters
+    <Box
       sx={{
-        bgcolor: alpha(theme.palette.primary.main, 0.05),
-        py: 5,
-        px: 3.75,
-        borderRadius: 2,
-        minWidth: '320px',
+        minHeight: 'calc(100vh - 130px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: alpha(theme.palette.primary.main, 0.02),
       }}
     >
-      <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h5" gutterBottom>
-          Log In
-        </Typography>
+      <Container
+        maxWidth="xs"
+        disableGutters
+        sx={{
+          bgcolor: alpha(theme.palette.primary.main, 0.05),
+          py: 5,
+          px: 3.75,
+          borderRadius: 2,
+          minWidth: '320px',
+        }}
+      >
+        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+          <Typography variant="h5" gutterBottom>
+            Log In
+          </Typography>
 
-        <ErrorAlert message={error} />
+          <ErrorAlert message={error} />
 
-        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <InputField
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError('');
-            }}
-          />
-          <InputField
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setError('');
-            }}
-          />
-          <AuthButton submitting={submitting} text="Log In" />
-
-          <Box mt={2} textAlign="center">
-            <Link
-              component={RouterLink}
-              to="/password/forgot"
-              variant="body2"
-              sx={{
-                color: theme.palette.primary.main,
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
-                },
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+            <InputField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError('');
               }}
-            >
-              Forgot password?
-            </Link>
+            />
+            <InputField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError('');
+              }}
+            />
+            <AuthButton submitting={submitting} text="Log In" />
+
+            <Box mt={2} textAlign="center">
+              <Link
+                component={RouterLink}
+                to="/password/forgot"
+                variant="body2"
+                sx={{
+                  color: theme.palette.primary.main,
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Forgot password?
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

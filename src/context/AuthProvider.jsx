@@ -99,6 +99,7 @@ export const AuthProvider = ({ children }) => {
         register,
         forgotPassword,
         setError,
+        error,
       }}
     >
       {children}

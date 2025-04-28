@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Container, Box, Typography, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import AuthButton from '../../components/Form/AuthButton';
 import ErrorAlert from '../../components/Form/ErrorAlert';
@@ -11,12 +11,11 @@ import InputField from '../../components/Form/InputField';
 import { useAuth } from '../../context/AuthProvider';
 import { useClearAuthError } from '../../hooks/useClearAuthError';
 
-function Login() {
-  const { login, error, setError } = useAuth();
+function ForgotPassword() {
+  const { forgotPassword, error, setError } = useAuth();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState('');
   const theme = useTheme();
 
   useClearAuthError();
@@ -25,12 +24,15 @@ function Login() {
     e.preventDefault();
     setSubmitting(true);
     setError('');
+    setSuccessMessage('');
+
     try {
-      await login(email, password);
-      navigate('/');
+      await forgotPassword(email);
+      setSuccessMessage('Reset link sent — check your email.');
+      setEmail('');
     } catch (err) {
       setError(err.message);
-      console.error('Login error:', err);
+      console.error('Forgot password error:', err);
     } finally {
       setSubmitting(false);
     }
@@ -59,10 +61,11 @@ function Login() {
       >
         <Box mt={2} display="flex" flexDirection="column" alignItems="center">
           <Typography variant="h5" gutterBottom>
-            Log In
+            Forgot Password
           </Typography>
 
-          <ErrorAlert message={error} />
+          {error && <ErrorAlert message={error} />}
+          {successMessage && <ErrorAlert message={successMessage} severity="success" />}
 
           <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
             <InputField
@@ -74,21 +77,13 @@ function Login() {
                 setError('');
               }}
             />
-            <InputField
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setError('');
-              }}
-            />
-            <AuthButton submitting={submitting} text="Log In" />
+
+            <AuthButton submitting={submitting} text="Send Reset Link" />
 
             <Box mt={2} textAlign="center">
               <Link
                 component={RouterLink}
-                to="/password/forgot"
+                to="/login"
                 variant="body2"
                 sx={{
                   color: theme.palette.primary.main,
@@ -98,7 +93,7 @@ function Login() {
                   },
                 }}
               >
-                Forgot password?
+                Back to login
               </Link>
             </Box>
           </Box>
@@ -108,4 +103,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

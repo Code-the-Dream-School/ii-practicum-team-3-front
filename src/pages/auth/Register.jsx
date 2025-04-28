@@ -60,81 +60,91 @@ function Register() {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      disableGutters
+    <Box
       sx={{
-        bgcolor: alpha(theme.palette.primary.main, 0.05),
-        py: 5,
-        px: 3.75,
-        borderRadius: 2,
-        minWidth: '320px',
+        minHeight: 'calc(100vh - 130px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: alpha(theme.palette.primary.main, 0.02),
       }}
     >
-      <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h5" gutterBottom>
-          Sign Up
-        </Typography>
+      <Container
+        maxWidth="xs"
+        disableGutters
+        sx={{
+          bgcolor: alpha(theme.palette.primary.main, 0.05),
+          py: 5,
+          px: 3.75,
+          borderRadius: 2,
+          minWidth: '320px',
+        }}
+      >
+        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+          <Typography variant="h5" gutterBottom>
+            Sign Up
+          </Typography>
 
-        <ErrorAlert message={error} />
-        <ErrorAlert message={passwordError} />
+          <ErrorAlert message={error} />
+          <ErrorAlert message={passwordError} />
 
-        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-          <InputField
-            label="First Name"
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Last Name"
-            name="lastName"
-            value={form.lastName}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Password"
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={form.confirmPassword}
-            onChange={handleChange}
-          />
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+            <InputField
+              label="First Name"
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Last Name"
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              value={form.confirmPassword}
+              onChange={handleChange}
+            />
 
-          <AuthButton submitting={submitting} text="Sign Up" />
+            <AuthButton submitting={submitting} text="Sign Up" />
 
-          <Box mt={2} textAlign="center">
-            <Link
-              component={RouterLink}
-              to="/login"
-              variant="body2"
-              sx={{
-                color: theme.palette.primary.main,
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
-                },
-              }}
-            >
-              Already have an account? Log In
-            </Link>
+            <Box mt={2} textAlign="center">
+              <Link
+                component={RouterLink}
+                to="/login"
+                variant="body2"
+                sx={{
+                  color: theme.palette.primary.main,
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Already have an account? Log In
+              </Link>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

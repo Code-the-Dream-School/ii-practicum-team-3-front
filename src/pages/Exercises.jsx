@@ -15,6 +15,10 @@ function Exercises() {
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
+  const [error, setError] = useState('');
+
+  const observer = useRef(null);
+  const itemsRef = useRef([]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -24,20 +28,28 @@ function Exercises() {
     try {
       setLoading(true);
       const data = await getExercises({ bodyPart, equipment, target, page, limit: 6 });
-      setExercises(data.data);
-      setTotalPages(data.totalPages);
+      if (data.data.length === 0) {
+        setExercises([]);
+        setTotalPages(1);
+      } else {
+        setExercises(data.data);
+        setTotalPages(data.totalPages);
+      }
     } catch (error) {
       console.error('Failed to fetch exercises:', error);
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    setPage(1);
+  }, [bodyPart, equipment, target]);
+
+  useEffect(() => {
     fetchExercises();
   }, [bodyPart, equipment, target, page]);
-
-  const observer = useRef(null);
 
   const handleIntersection = (entries) => {
     entries.forEach((entry) => {
@@ -53,11 +65,16 @@ function Exercises() {
       threshold: 0.1,
     });
 
-    const items = document.querySelectorAll('.exercise-card');
-    items.forEach((item) => observer.current.observe(item));
+    itemsRef.current.forEach((item) => {
+      if (item) {
+        observer.current.observe(item);
+      }
+    });
 
     return () => {
-      observer.current.disconnect();
+      if (observer.current) {
+        observer.current.disconnect();
+      }
     };
   }, [exercises]);
 
@@ -65,14 +82,11 @@ function Exercises() {
     <Box
       sx={{
         minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#f9f9f9',
         pt: 4,
       }}
     >
-      <Container>
+      <Container sx={{ display: 'flex', flexDirection: 'column', minHeight: '85vh' }}>
         <ExercisesFilters
           bodyPart={bodyPart}
           setBodyPart={setBodyPart}
@@ -84,6 +98,7 @@ function Exercises() {
         {/* Cards */}
         <Box
           sx={{
+            flexGrow: 1,
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
             gap: 4,
@@ -95,9 +110,10 @@ function Exercises() {
               <Skeleton key={index} variant="rectangular" height={300} sx={{ borderRadius: 2 }} />
             ))
           ) : exercises.length > 0 ? (
-            exercises.map((exercise) => (
+            exercises.map((exercise, index) => (
               <Box
                 key={exercise.id}
+                ref={(el) => (itemsRef.current[index] = el)}
                 className="exercise-card"
                 sx={{
                   position: 'relative',

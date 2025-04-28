@@ -111,6 +111,7 @@ function ExerciseCard({
             textTransform: 'none',
             backgroundColor: theme.palette.secondary.main,
           }}
+          onClick={() => console.log('Exercise added to favorites')}
         >
           Add
         </Button>

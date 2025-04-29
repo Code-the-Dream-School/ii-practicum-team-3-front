@@ -112,7 +112,7 @@ function Exercises() {
           ) : exercises.length > 0 ? (
             exercises.map((exercise, index) => (
               <Box
-                key={exercise.id}
+                key={exercise._id}
                 ref={(el) => (itemsRef.current[index] = el)}
                 className="exercise-card"
                 sx={{

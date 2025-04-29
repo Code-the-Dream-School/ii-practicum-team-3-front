@@ -6,22 +6,22 @@ function ExercisesFilters({ bodyPart, setBodyPart, equipment, setEquipment, targ
   return (
     <Box sx={{ display: 'flex', gap: 2, mb: 4, justifyContent: 'center' }}>
       <Select value={bodyPart} onChange={(e) => setBodyPart(e.target.value)} displayEmpty>
-        {bodyParts.map(({ value, label }, index) => (
-          <MenuItem key={`${value}-${index}`} value={value}>
+        {bodyParts.map(({ value, label }) => (
+          <MenuItem key={value} value={value}>
             {label}
           </MenuItem>
         ))}
       </Select>
       <Select value={equipment} onChange={(e) => setEquipment(e.target.value)} displayEmpty>
-        {equipments.map(({ value, label }, index) => (
-          <MenuItem key={`${value}-${index}`} value={value}>
+        {equipments.map(({ value, label }) => (
+          <MenuItem key={value} value={value}>
             {label}
           </MenuItem>
         ))}
       </Select>
       <Select value={target} onChange={(e) => setTarget(e.target.value)} displayEmpty>
-        {targets.map(({ value, label }, index) => (
-          <MenuItem key={`${value}-${index}`} value={value}>
+        {targets.map(({ value, label }) => (
+          <MenuItem key={value} value={value}>
             {label}
           </MenuItem>
         ))}

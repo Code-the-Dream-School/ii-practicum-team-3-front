@@ -69,19 +69,30 @@ function Home() {
             sx={{
               display: 'flex',
               alignItems: 'flex-end',
-              gap: 2,
-              pr: 4,
+              gap: { xs: 2, md: 1 },
+              flex: 1,
+              justifyContent: 'center',
             }}
           >
             <img
               src="/images/fitness-man.png"
               alt="Fitness Man"
-              style={{ maxHeight: '280px', objectFit: 'contain' }}
+              style={{
+                width: '260px',
+                maxWidth: '30vw',
+                height: 'auto',
+                objectFit: 'contain',
+              }}
             />
             <img
               src="/images/fitness-woman.png"
               alt="Fitness Woman"
-              style={{ maxHeight: '280px', objectFit: 'contain' }}
+              style={{
+                width: '260px',
+                maxWidth: '30vw',
+                height: 'auto',
+                objectFit: 'contain',
+              }}
             />
           </Box>
 

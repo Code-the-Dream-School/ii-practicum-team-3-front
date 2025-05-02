@@ -1,6 +1,15 @@
 import { createTheme } from '@mui/material';
 
 const baseTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: "'IBM Plex Sans', sans-serif",
     h1: {

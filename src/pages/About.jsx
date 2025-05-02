@@ -20,7 +20,7 @@ const teamMembers = [
   {
     name: 'Natalia Sokolova',
     role: 'Back-End Developer',
-    img: 'https://ca.slack-edge.com/T07EHJ738-U072JPSREB1-g9d563deca4b-512',
+    img: 'https://ca.slack-edge.com/T07EHJ738-U072JPSREB1-b0eeb614cee7-512',
     linkedin: '',
     github: '',
   },

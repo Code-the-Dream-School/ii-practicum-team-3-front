@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import customFetch from '../../api/customFetch';
 
-
-
 //  const for styles
 
 const STEP_INDICATOR_STYLE = {
@@ -92,8 +90,8 @@ const CustomWorkoutBuilder = () => {
       console.log('Submitting workout data:', requestData);
 
       // post request
-      
-      const response = await customFetch.post('/api/v1/customized-workout', requestData, {
+
+      const response = await customFetch.post('/api/v1/customized-workout/create', requestData, {
         headers: {
           'Content-Type': 'application/json',
         },

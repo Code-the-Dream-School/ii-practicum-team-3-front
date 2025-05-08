@@ -2,6 +2,7 @@ import Slider from '@mui/material/Slider';
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import customFetch from '../../api/customFetch';
+import { useNavigate } from 'react-router-dom';
 
 //  const for styles
 
@@ -70,7 +71,7 @@ const CustomWorkoutBuilder = () => {
     weight: '',
     level: '',
   });
-
+  const navigate = useNavigate();
   const handleChange = (field) => (event) => {
     setFormData({ ...formData, [field]: event.target.value });
   };
@@ -98,7 +99,20 @@ const CustomWorkoutBuilder = () => {
       });
 
       console.log('Workout created:', response.data);
+
       alert('Your custom workout plan has been created successfully!');
+
+      // const handleClick = () => {
+      //   if (!id) {
+      //     console.warn('WorkoutCard clicked but id is missing');
+      //     return;
+      //   }
+      //   navigate(`/workouts/${id}`);
+      // };
+
+      const workoutId = response.data.data._id;
+      console.log('workoutId:', workoutId);
+      navigate(`/workouts/${workoutId}`);
 
       // form reset
       setFormData({

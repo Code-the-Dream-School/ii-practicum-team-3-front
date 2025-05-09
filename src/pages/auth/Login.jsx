@@ -39,12 +39,11 @@ function Login() {
   return (
     <Box
       sx={{
-        height: 'calc(100vh - 200px)',
+        height: 'calc(100vh - 160px)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: alpha(theme.palette.primary.main, 0.02), 
-        // (check margins and paddings and height)
+        backgroundColor: alpha(theme.palette.primary.main, 0.02), 
       }}
     >
       <Container

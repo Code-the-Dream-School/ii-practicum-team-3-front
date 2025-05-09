@@ -8,7 +8,7 @@ function NotFound() {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
+        height: "calc(100vh - 160px)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -24,7 +24,6 @@ function NotFound() {
         alt="404 Not Found"
         sx={{
           width: { xs: "90%", sm: "400px", md: "500px" },
-          maxHeight: "70vh",
           objectFit: "contain",
           mt: { xs: -2, md: -4 },
         }}

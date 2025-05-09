@@ -89,34 +89,26 @@ function Home() {
           height: 0,
           zIndex: 3,
           overflow: 'visible',
+          width: '100%',
         }}
       >
         <Box
           sx={{
             position: 'absolute',
-            bottom: { xs: -6, sm: -9, md: -10, lg: -10, xl: -11 },
+            bottom: 0,
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
-            gap: { xs: 2, md: 4 },
+            alignItems: 'flex-end',
           }}
         >
-          <img
-            src="/images/fitness-man.png"
-            alt="Fitness Man"
-            style={{
-              width: '260px',
-              maxWidth: '30vw',
-              height: 'auto',
-              objectFit: 'contain',
-            }}
-          />
-          <img
-            src="/images/fitness-woman.png"
-            alt="Fitness Woman"
-            style={{
-              width: '260px',
-              maxWidth: '30vw',
+          <Box
+            component="img"
+            src="/images/man_woman.png"
+            alt="Fitness Man and Woman"
+            sx={{
+              width: '100%',
+              maxWidth: { xs: '240px', sm: '300px', md: '400px' },
               height: 'auto',
               objectFit: 'contain',
             }}

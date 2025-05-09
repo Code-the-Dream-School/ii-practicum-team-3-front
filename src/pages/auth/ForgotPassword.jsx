@@ -72,6 +72,7 @@ function ForgotPassword() {
               label="Email"
               type="email"
               value={email}
+              disabled={submitting}
               onChange={(e) => {
                 setEmail(e.target.value);
                 setError('');

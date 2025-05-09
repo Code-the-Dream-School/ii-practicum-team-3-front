@@ -76,12 +76,14 @@ function ResetPassword() {
               label="New Password"
               type="password"
               value={newPassword}
+              disabled={submitting}
               onChange={(e) => setPassword(e.target.value)}
             />
             <InputField
               label="Confirm New Password"
               type="password"
               value={confirmPassword}
+              disabled={submitting}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <AuthButton submitting={submitting} text="Reset Password" />

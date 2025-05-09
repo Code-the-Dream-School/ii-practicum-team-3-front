@@ -14,8 +14,10 @@ import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
 // Pages - Workouts
 import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
+import FavoriteWorkouts from '../pages/workouts/FavoriteWorkouts';
 import Workout from '../pages/workouts/Workout';
 import Workouts from '../pages/workouts/Workouts';
+
 
 const Router = () => {
   return (
@@ -32,6 +34,7 @@ const Router = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           {/* Workouts Routes  */}
           <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/favorites" element={<FavoriteWorkouts />} />
           <Route path="/workouts/:id" element={<Workout />} />
           <Route path="/workouts/create" element={<CreateCustomWorkout />} />
           {/* 404 Page */}

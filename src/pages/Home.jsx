@@ -41,7 +41,6 @@ function Home() {
             alignItems: 'flex-end',
             px: { xs: 2, md: 6 },
             flexWrap: 'wrap',
-            alignItems: 'stretch',
             pb: 4,
           }}
         >
@@ -72,7 +71,7 @@ function Home() {
               position: 'absolute',
               top: 24,
               right: 40,
-              color: theme.palette.primary.main,
+              color: theme.palette.common.white,
               fontWeight: 'bold',
               zIndex: 4,
             }}

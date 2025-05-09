@@ -1,5 +1,6 @@
 import { Box, Typography, Link as MuiLink } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { Link  } from 'react-router-dom';
 
 function Footer() {
   const theme = useTheme();
@@ -28,7 +29,12 @@ function Footer() {
         >
           Code The Dream
         </MuiLink>{' '}
+        <Link
+          to='/about'
+          underline="hover"
+        >
         Practicum Group #3 (ibis + impala)
+        </Link>
       </Typography>
     </Box>
   );

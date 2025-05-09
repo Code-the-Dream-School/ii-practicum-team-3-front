@@ -4,13 +4,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const teamMembers = [
   {
-    name: 'Alena Danilchenko',
-    role: 'Front-End Developer',
-    img: 'https://ca.slack-edge.com/T07EHJ738-U072JPU4JKZ-8ab987c58982-512',
-    linkedin: '',
-    github: '',
-  },
-  {
     name: 'Dmitrii Bogorodskii',
     role: 'Back-End Developer',
     img: 'https://ca.slack-edge.com/T07EHJ738-U072SMQFWNS-8b65dd4e3ea1-512',
@@ -19,8 +12,15 @@ const teamMembers = [
   },
   {
     name: 'Natalia Sokolova',
-    role: 'Back-End Developer',
+    role: 'Full-Stack Developer',
     img: 'https://ca.slack-edge.com/T07EHJ738-U072JPSREB1-b0eeb614cee7-512',
+    linkedin: '',
+    github: '',
+  },  
+ {
+    name: 'Alena Danilchenko',
+    role: 'Front-End Developer',
+    img: 'https://ca.slack-edge.com/T07EHJ738-U072JPU4JKZ-8ab987c58982-512',
     linkedin: '',
     github: '',
   },
@@ -28,38 +28,42 @@ const teamMembers = [
     name: 'Petr Kekalo',
     role: 'Front-End Developer',
     img: 'https://ca.slack-edge.com/T07EHJ738-U073N4R9XCY-14d529f9c661-512',
-    linkedin: 'https://www.linkedin.com/in/petr-kekalo/',
-    github: 'https://github.com/pkekalo',
+    linkedin: '',
+    github: '',
   },
 ];
 
 const mentors = [
   {
-    name: 'Valentina Rudnitskaya',
-    role: 'Code Assistant',
-    img: 'https://ca.slack-edge.com/T07EHJ738-U06J5V27ZMG-04e747c5bee7-512',
-  },
-  {
-    name: 'Evgenii Rychkov',
-    role: 'Front-End Mentor',
-    img: 'https://ca.slack-edge.com/T07EHJ738-U076LTPKXRQ-ae8d10d0b7ca-512',
-  },
-  {
-    name: 'Dan P',
-    role: 'Back-End Mentor',
-    img: 'https://ca.slack-edge.com/T07EHJ738-U0469QPLGE6-9ce9e82152ff-512',
-    linkedin: 'https://www.linkedin.com/in/dan-p-eop/',
-    github: 'https://github.com/benochi',
-  },
+  name: 'Dan Polityka ',
+  role: 'Back-End Mentor',
+  img: 'https://ca.slack-edge.com/T07EHJ738-U0469QPLGE6-9ce9e82152ff-512',
+  linkedin: '',
+  github: '',
+},
+{
+  name: 'Evgenii Rychkov',
+  role: 'Front-End Mentor',
+  img: 'https://ca.slack-edge.com/T07EHJ738-U076LTPKXRQ-ae8d10d0b7ca-512',
+  linkedin: '',
+  github: '',
+},
+{
+  name: 'Valentina Rudnitskaya',
+  role: 'Mentor Assistant',
+  img: 'https://ca.slack-edge.com/T07EHJ738-U06J5V27ZMG-04e747c5bee7-512',
+  linkedin: '',
+  github: '',
+},
 ];
 
 export default function About() {
   const theme = useTheme();
 
   return (
-    <Box sx={{ textAlign: 'center', py: 6, backgroundColor: theme.palette.background.default }}>
-      <Typography variant="h4" gutterBottom>
-        About Us
+    <Box sx={{ textAlign: 'center', backgroundColor: theme.palette.background.default }}>
+      <Typography variant="h1" sx={{ mb: 5, mt: 5}} gutterBottom>
+         Meet the team
       </Typography>
 
       <Box
@@ -103,23 +107,6 @@ export default function About() {
         ))}
       </Box>
 
-      <Typography variant="h6" gutterBottom>
-        About this Project
-      </Typography>
-      <Typography sx={{ maxWidth: 640, mx: 'auto', mb: 6 }} color="text.secondary">
-        FitnessApp is an innovative fitness platform designed to empower users with personalized workout plans, nutritional guidance, and progress tracking. It aims to provide an all-in-one fitness solution, combining exercise customization, data-driven recommendations, and a motivating community experience.
-      </Typography>
-
-      <Typography variant="h6">
-        Thank you{' '}
-        <Link href="https://codethedream.org/" target="_blank" rel="noopener">
-          Code the Dream
-        </Link>
-      </Typography>
-      <Typography variant="body1" mb={3}>
-        Thank you Mentors
-      </Typography>
-
       <Box
         sx={{
           display: 'flex',
@@ -159,6 +146,13 @@ export default function About() {
           </Box>
         ))}
       </Box>
+
+      <Typography variant="h2" sx={{ mt: 5, mb: 3,}}  gutterBottom>
+        About this Project
+      </Typography>
+      <Typography sx={{ maxWidth: 640, mx: 'auto', mb: 6 }} color="text.secondary">
+        FitnessApp is an innovative fitness platform designed to empower users with personalized workout plans, nutritional guidance, and progress tracking. It aims to provide an all-in-one fitness solution, combining exercise customization, data-driven recommendations, and a motivating community experience.
+      </Typography>
     </Box>
   );
 }

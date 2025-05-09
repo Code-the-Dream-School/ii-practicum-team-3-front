@@ -62,12 +62,11 @@ function Register() {
   return (
     <Box
       sx={{
-        height: 'calc(100vh - 200px)',
+        height: 'calc(100vh - 160px)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: alpha(theme.palette.primary.main, 0.02),
-        // (check margin, padding, and height)
+        backgroundColor: alpha(theme.palette.primary.main, 0.02),
       }}
     >
       <Container

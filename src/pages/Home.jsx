@@ -8,7 +8,7 @@ function Home() {
   return (
     <Box sx={{ m: 0, p: 0 }}>
       {/* Hero section */}
-      <Box sx={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
+      <Box sx={{ position: 'relative', height: '520px', overflow: 'hidden' }}>
         {/* Green base */}
         <Box
           sx={{
@@ -24,8 +24,8 @@ function Home() {
           sx={{
             position: 'absolute',
             width: '100%',
-            height: '100%',
-            clipPath: 'polygon(0 0, 100% 0, 100% 20%, 0 100%)',
+            height: '120%',
+            clipPath: 'polygon(0 0, 100% 0, 100% 30%, 0 100%)',
             backgroundColor: theme.palette.primary.main,
             zIndex: 2,
           }}
@@ -64,27 +64,6 @@ function Home() {
             </Button>
           </Box>
 
-          {/* Right characters */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              gap: 2,
-              pr: 4,
-            }}
-          >
-            <img
-              src="/images/fitness-man.png"
-              alt="Fitness Man"
-              style={{ maxHeight: '280px', objectFit: 'contain' }}
-            />
-            <img
-              src="/images/fitness-woman.png"
-              alt="Fitness Woman"
-              style={{ maxHeight: '280px', objectFit: 'contain' }}
-            />
-          </Box>
-
           {/* Top-right label */}
           <Typography
             variant="h6"
@@ -92,13 +71,47 @@ function Home() {
               position: 'absolute',
               top: 24,
               right: 40,
-              color: theme.palette.primary.main,
+              color: theme.palette.common.white,
               fontWeight: 'bold',
               zIndex: 4,
             }}
           >
             135+ Fitness Programs
           </Typography>
+        </Box>
+      </Box>
+
+      {/* Characters on green border - responsive position */}
+      <Box
+        sx={{
+          position: 'relative',
+          height: 0,
+          zIndex: 3,
+          overflow: 'visible',
+          width: '100%',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+          }}
+        >
+          <Box
+            component="img"
+            src="/images/man_woman.png"
+            alt="Fitness Man and Woman"
+            sx={{
+              width: '100%',
+              maxWidth: { xs: '240px', sm: '300px', md: '400px' },
+              height: 'auto',
+              objectFit: 'contain',
+            }}
+          />
         </Box>
       </Box>
 
@@ -121,7 +134,6 @@ function Home() {
             justifyContent: 'center',
             gap: 2,
             flexWrap: 'wrap',
-            alignItems: 'center',
           }}
         >
           {[
@@ -129,35 +141,40 @@ function Home() {
             'Start with Workout',
             'Customize your personal plan',
             'Track your program',
-          ].map((step, index, arr) => (
-            <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.primary.main,
-                  px: 3,
-                  py: 2,
-                  fontWeight: 'bold',
-                  borderRadius: '10px',
-                  minWidth: '220px',
-                  textAlign: 'center',
-                }}
-              >
+          ].map((step, index) => (
+            <Box
+              key={index}
+              sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flex: '1 1 240px',
+              height: '64px',
+                backgroundColor: theme.palette.secondary.main,
+                color: theme.palette.primary.main,
+                px: 3,
+                py: 2,
+                fontWeight: 'bold',
+                borderRadius: '10px',
+                minWidth: '240px', maxWidth: '240px', width: '100%',
+              }}
+            >
+              <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
                 {step}
-              </Box>
-              {index < arr.length - 1 && (
-                <Box
-                  sx={{
-                    width: 0,
-                    height: 0,
-                    borderLeft: '10px solid black',
-                    borderTop: '8px solid transparent',
-                    borderBottom: '8px solid transparent',
-                    ml: 1,
-                    mr: 1,
-                  }}
-                />
-              )}
+              </Typography>
+              <Box
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  width: 0,
+                  height: 0,
+                  borderLeft: '10px solid black',
+                  borderTop: '8px solid transparent',
+                  borderBottom: '8px solid transparent',
+                  ml: 2,
+                }}
+              />
             </Box>
           ))}
         </Box>

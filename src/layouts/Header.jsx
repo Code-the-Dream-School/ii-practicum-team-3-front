@@ -67,10 +67,10 @@ function Header() {
             ) : (
               <>
                 <Button component={Link} to="/login" sx={{ color: 'inherit' }}>
-                  Login
+                  Log In
                 </Button>
                 <Button component={Link} to="/register" sx={{ color: 'inherit' }}>
-                  Register
+                  Sign Up
                 </Button>
               </>
             )}
@@ -123,7 +123,7 @@ function Header() {
             ) : (
               <>
                 <Button component={Link} to="/login" color="secondary">
-                  Login
+                  Log In
                 </Button>
                 <Button component={Link} to="/register" color="secondary">
                   Sign Up

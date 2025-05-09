@@ -62,7 +62,7 @@ function Register() {
   return (
     <Box
       sx={{
-        minHeight: 'calc(100vh - 130px)',
+        height: 'calc(100vh - 160px)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

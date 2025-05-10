@@ -61,73 +61,88 @@ const Favorites = () => {
       }}
     >
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           Favorites
         </Typography>
-
-        <Typography
-          variant="body2"
-          align="left"
-          sx={{ mt: 3, mb: 1, fontWeight: 'bold', py: '1em' }}
-        >
-          Exercises:
-        </Typography>
-        <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-          {dummyFavorites.exercises.slice(0, 3).map((ex) => (
-            <MiniCard key={ex.id} title={ex.title} />
-          ))}
-        </Stack>
-        <Button
-          variant="contained"
-          sx={{
-            mt: 4
-          }}
-        >
-          View All Exercises
-        </Button>
-
-        <Typography
-          variant="body2"
-          align="left"
-          sx={{
-            mt: 3,
-            mb: 1,
-            fontWeight: 'bold',
-            py: '1em',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1
-          }}
-        >
-          <FitnessCenterIcon fontSize="small" color="action" />
-          Workouts:
-          <Box
-            component="span"
+        <Box bgcolor="#f3f8d7" sx={{ borderRadius: 2, mt: 2, mb: 2, px: 3, py: 3 }}>
+          <Typography
+            variant="body1"
+            align="left"
             sx={{
-              ml: 1,
-              bgcolor: '#e0e0e0',
-              borderRadius: '12px',
-              px: 1.2,
-              fontSize: '0.8em',
-              color: '#555',
+              mt: 3,
+              mb: 1,
+              fontWeight: 'bold',
+              py: '1em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1
             }}
           >
-            {favoriteWorkouts.length}
-          </Box>
-        </Typography>
-        <Stack
-          direction="row"
-          gap={2}
-          spacing={1}
-          sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
-        >
-          {favoriteWorkouts.slice(0, 9).map((w) => (
-            <MiniCard key={w.id} title={w.title || w.name} />
-          ))}
-        </Stack>
-        <Button variant="contained" sx={{ mt: 4 }} onClick={() => navigate('/workouts/favorites')}>
-          View All Workouts
-        </Button>
+            <FitnessCenterIcon fontSize="small" color="action" />
+            Exercises:
+          </Typography>
+          <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+            {dummyFavorites.exercises.slice(0, 3).map((ex) => (
+              <MiniCard key={ex.id} title={ex.title} />
+            ))}
+          </Stack>
+          <Button
+            variant="contained"
+            sx={{
+              mt: 4,
+            }}
+          >
+            View All Exercises
+          </Button>
+        </Box>
+        <Box bgcolor="#f3f8d7" sx={{ borderRadius: 2, px: 3, py: 3 }}>
+          <Typography
+            variant="body1"
+            align="left"
+            sx={{
+              mt: 3,
+              mb: 1,
+              fontWeight: 'bold',
+              py: '1em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1
+            }}
+          >
+            <FitnessCenterIcon fontSize="small" color="action" />
+            Workouts:
+            <Box
+              component="span"
+              sx={{
+                ml: 1,
+                bgcolor: '#e0e0e0',
+                borderRadius: '12px',
+                px: 1.2,
+                fontSize: '0.8em',
+                color: '#555',
+              }}
+            >
+              {favoriteWorkouts.length}
+            </Box>
+          </Typography>
+          <Stack
+            direction="row"
+            gap={2}
+            spacing={1}
+            sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
+          >
+            {favoriteWorkouts.slice(0, 9).map((w) => (
+              <MiniCard key={w._id} title={w.title || w.name} />
+            ))}
+          </Stack>
+          <Button
+            variant="contained"
+            sx={{ mt: 4 }}
+            onClick={() => navigate('/workouts/favorites')}
+          >
+            View All Workouts
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );

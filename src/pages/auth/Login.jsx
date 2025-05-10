@@ -5,14 +5,16 @@ import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
+import customFetch from '../../api/customFetch';
 import AuthButton from '../../components/Form/AuthButton';
 import ErrorAlert from '../../components/Form/ErrorAlert';
 import InputField from '../../components/Form/InputField';
 import { useAuth } from '../../context/AuthProvider';
 import { useClearAuthError } from '../../hooks/useClearAuthError';
 
+
 function Login() {
-  const { login, error, setError } = useAuth();
+  const { login, error, setError, setUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -27,6 +29,9 @@ function Login() {
     setError('');
     try {
       await login(email, password);
+      const res = await customFetch.get('/api/v1/user/profile');
+      const user = res.data?.data;
+      setUser(user);
       navigate('/');
     } catch (err) {
       setError(err.message);

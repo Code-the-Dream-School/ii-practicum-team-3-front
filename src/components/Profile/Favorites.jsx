@@ -4,16 +4,8 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { Card, CardContent, Typography, Box, Button, Stack, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { getSavedWorkouts } from '../../api/DBRequests';
+import { getSavedWorkouts, getSavedExercises } from '../../api/DBRequests';
 
-
-const dummyFavorites = {
-  exercises: [
-    { id: 1, title: 'Yoga Flow' },
-    { id: 2, title: 'Deadlifts' },
-    { id: 3, title: 'Sprint HIIT' },
-  ],
-};
 
 const MiniCard = ({ title }) => (
   <Paper
@@ -33,14 +25,23 @@ const MiniCard = ({ title }) => (
 const Favorites = () => {
   const navigate = useNavigate();
   const [favoriteWorkouts, setFavoriteWorkouts] = useState([]);
+  const [favoriteExercises, setFavoriteExercises] = useState([]);
 
-  
+
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const [workoutsRes] = await Promise.all([getSavedWorkouts(1, 1000, { isTemplate: false })]);
+        const [workoutsRes, exercisesRes] = await Promise.all([
+          getSavedWorkouts(1, 1000, { isTemplate: false }),
+          getSavedExercises(1, 1000),
+        ]);
+
         if (workoutsRes.success) {
           setFavoriteWorkouts(workoutsRes.data);
+        }
+
+        if (exercisesRes.success) {
+          setFavoriteExercises(exercisesRes.data);
         }
       } catch (error) {
         console.error('Failed to fetch favorites:', error);
@@ -49,7 +50,6 @@ const Favorites = () => {
 
     fetchFavorites();
   }, []);
-
 
 
   return (
@@ -82,7 +82,7 @@ const Favorites = () => {
             Exercises:
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-            {dummyFavorites.exercises.slice(0, 3).map((ex) => (
+            {favoriteExercises.slice(0, 3).map((ex) => (
               <MiniCard key={ex.id} title={ex.title} />
             ))}
           </Stack>
@@ -91,6 +91,7 @@ const Favorites = () => {
             sx={{
               mt: 4,
             }}
+            onClick={() => navigate('/exercises/favorites')}
           >
             View All Exercises
           </Button>

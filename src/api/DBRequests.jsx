@@ -1,4 +1,5 @@
 import customFetch from './customFetch';
+
 export const getExercises = async (filters) => {
   const response = await customFetch.get('/api/v1/exercises', {
     params: {
@@ -7,6 +8,45 @@ export const getExercises = async (filters) => {
   });
   return response.data;
 };
+
+
+export const getSavedExercises = async (page = 1, limit = 10) => {
+  const response = await customFetch.get('/api/v1/favorites', {
+    params: { page, limit },
+  });
+  return response.data;
+};
+
+export const saveExerciseToFavorites = async (exerciseId) => {
+  try {
+    const response = await customFetch.post(`/api/v1/favorites/${exerciseId}`);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response from server:", error.response);
+    } else {
+      console.error("Error saving exercise to favorites:", error);
+    }
+    throw error;
+  }
+};
+
+export const deleteSavedExercise = async (exerciseId) => {
+  if (!exerciseId) {
+    console.error("No exerciseId provided.");
+    return;
+  }
+  try {
+    const response = await customFetch.delete(`/api/v1/favorites/${exerciseId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting exercise from favorites:", error);
+    throw error;
+  }
+};
+
+// Workouts ========================================================
+
 
 export const getWorkouts = async (page = 1, limit = 10, level) => {
   const params = { page, limit, isTemplate: true };
@@ -81,7 +121,7 @@ export const getSavedWorkoutById = async (id) => {
     console.error('Workout ID is undefined');
     return;
   }
-  try {
+  try { 
     const response = await customFetch.get(`/api/v1/saved-workouts/${id}`); 
     console.log('Workout response:', response.data);
     return response.data;
@@ -90,3 +130,4 @@ export const getSavedWorkoutById = async (id) => {
     throw error;
   }
 }; 
+

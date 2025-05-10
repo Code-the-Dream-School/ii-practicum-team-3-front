@@ -1,21 +1,19 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
+// import ExerciseCard from '../components/ExerciseCard';
 // Layouts
 import MainLayout from '../layouts/MainLayout';
-
-// Pages - Auth
+// Pages
+import AboutPage from '../pages/About';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ResetPassword from '../pages/auth/ResetPassword';
-
-// Pages
 import Exercises from '../pages/Exercises';
+import FavoriteExercises from '../pages/FavoriteExercises';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
-import AboutPage from '../pages/About';
-
 // Pages - Workouts
 import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
 import FavoriteWorkouts from '../pages/workouts/FavoriteWorkouts';
@@ -32,6 +30,8 @@ const Router = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/exercises" element={<Exercises />} />
+          <Route path="/exercises/favorites" element={<FavoriteExercises />} />
+          {/* <Route path="/exercises/:id" element={<ExerciseCard />} />  */}
 
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />

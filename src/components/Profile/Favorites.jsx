@@ -64,7 +64,7 @@ const Favorites = () => {
         <Typography variant="h5" gutterBottom>
           Favorites
         </Typography>
-        <Box bgcolor="#f3f8d7" sx={{ borderRadius: 2, mt: 2, mb: 2, px: 3, py: 3 }}>
+        <Box sx={{ border: '1px solid #e1e0e2', borderRadius: 2, mt: 2, mb: 2, px: 3, py: 3 }}>
           <Typography
             variant="body1"
             align="left"
@@ -95,7 +95,7 @@ const Favorites = () => {
             View All Exercises
           </Button>
         </Box>
-        <Box bgcolor="#f3f8d7" sx={{ borderRadius: 2, px: 3, py: 3 }}>
+        <Box sx={{ border: '1px solid #e1e0e2', borderRadius: 2, px: 3, py: 3 }}>
           <Typography
             variant="body1"
             align="left"

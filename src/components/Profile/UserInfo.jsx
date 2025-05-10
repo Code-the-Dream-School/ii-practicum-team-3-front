@@ -104,7 +104,7 @@ const UserInfo = () => {
       case 'Intermediate':
         return '#eb6967'; 
       case 'Advanced':
-        return '#1d2436'; 
+        return '#69c586'; 
       default:
         return '#A0AEC0';
     }

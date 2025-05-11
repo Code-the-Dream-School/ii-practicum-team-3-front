@@ -10,9 +10,10 @@ const Profile = () => {
     <Container
       maxWidth="xl"
       sx={{
-        mt:4,
+        mt: 2,
         borderRadius: 2,
         boxShadow: 3,
+        mb: 2,
       }}
       align="center"
     >

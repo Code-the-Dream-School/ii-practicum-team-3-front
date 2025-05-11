@@ -57,7 +57,7 @@ const Favorites = () => {
       sx={{
         height: '100%',
         px: '3em',
-        py: '1em'
+        py: '1em',
       }}
     >
       <CardContent>
@@ -80,10 +80,23 @@ const Favorites = () => {
           >
             <FitnessCenterIcon fontSize="small" color="action" />
             Exercises:
+            <Box
+              component="span"
+              sx={{
+                ml: 1,
+                bgcolor: '#e0e0e0',
+                borderRadius: '12px',
+                px: 1.2,
+                fontSize: '0.8em',
+                color: '#555',
+              }}
+            >
+              {favoriteExercises.length}
+            </Box>
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-            {favoriteExercises.slice(0, 3).map((ex) => (
-              <MiniCard key={ex.id} title={ex.title} />
+            {favoriteExercises.slice(0, 4).map((ex) => (
+              <MiniCard key={ex._id} title={ex.name} />
             ))}
           </Stack>
           <Button
@@ -132,7 +145,7 @@ const Favorites = () => {
             spacing={1}
             sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
           >
-            {favoriteWorkouts.slice(0, 9).map((w) => (
+            {favoriteWorkouts.slice(0, 5).map((w) => (
               <MiniCard key={w._id} title={w.title || w.name} />
             ))}
           </Stack>

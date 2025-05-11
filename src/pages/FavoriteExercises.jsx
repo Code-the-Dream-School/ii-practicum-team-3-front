@@ -1,21 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { Container, Box, Typography, Pagination, Skeleton } from '@mui/material';
+import { Container, Box, Typography, Pagination, Skeleton, Button } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { getSavedExercises } from '../api/DBRequests';
 import ExerciseCard from '../components/ExerciseCard';
-import ExercisesFilters from '../components/ExercisesFilters';
 
-function Exercises() {
-  const [bodyPart, setBodyPart] = useState('');
-  const [equipment, setEquipment] = useState('');
-  const [target, setTarget] = useState('');
+function FavoriteExercises() {
   const [page, setPage] = useState(1);
-
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const backPath = location.state?.from || '/profile';
 
   const observer = useRef(null);
   const itemsRef = useRef([]);
@@ -27,7 +26,7 @@ function Exercises() {
   const fetchExercises = async () => {
     try {
       setLoading(true);
-      const data = await getSavedExercises({ bodyPart, equipment, target, page, limit: 6 });
+      const data = await getSavedExercises(page, 6);
       if (data.data.length === 0) {
         setExercises([]);
         setTotalPages(1);
@@ -44,12 +43,8 @@ function Exercises() {
   };
 
   useEffect(() => {
-    setPage(1);
-  }, [bodyPart, equipment, target]);
-
-  useEffect(() => {
     fetchExercises();
-  }, [bodyPart, equipment, target, page]);
+  }, [page]);
 
   const handleIntersection = (entries) => {
     entries.forEach((entry) => {
@@ -87,15 +82,26 @@ function Exercises() {
       }}
     >
       <Container sx={{ display: 'flex', flexDirection: 'column', minHeight: '85vh' }}>
-        <Typography>Favorite Exercises: </Typography>
-        <ExercisesFilters
-          bodyPart={bodyPart}
-          setBodyPart={setBodyPart}
-          equipment={equipment}
-          setEquipment={setEquipment}
-          target={target}
-          setTarget={setTarget}
-        />
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{
+            mb: 2,
+            textTransform: 'none',
+            alignSelf: { xs: 'center', md: 'flex-start' }
+          }}
+          onClick={() => navigate(backPath)}
+        >
+          ← Back to Profile
+        </Button>
+
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{ fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' } }}
+        >
+          Favorite Exercises:
+        </Typography>
         {/* Cards */}
         <Box
           sx={{
@@ -135,11 +141,17 @@ function Exercises() {
           )}
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-          <Pagination count={totalPages} page={page} onChange={handlePageChange} color="primary" />
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            color="primary"
+            sx={{ mb:4 }}
+          />
         </Box>
       </Container>
     </Box>
   );
 }
 
-export default Exercises;
+export default FavoriteExercises;

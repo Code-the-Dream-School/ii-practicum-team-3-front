@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 
 import { Typography, Container, Box, Skeleton, Button } from '@mui/material';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import {
   getWorkoutById,
@@ -86,15 +87,15 @@ const Workout = () => {
       if (isFavorite) {
         await deleteSavedWorkout(id);
         setIsFavorite(false);
-        alert('Workout removed from favorites!');
+        toast.success('Workout removed from favorites!');
       } else {
         await saveWorkoutToFavorites(id);
         setIsFavorite(true);
-        alert('Workout added to favorites!');
+        toast.success('Workout added to favorites!');
       }
     } catch (error) {
       console.error('Favorite toggle error:', error.message || error);
-      alert(error?.message || 'Something went wrong');
+      toast.error(error?.message || 'Something went wrong');
     }
   };
 

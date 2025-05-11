@@ -9,15 +9,16 @@ import {
   saveWorkoutToFavorites,
   deleteSavedWorkout,
   getSavedWorkoutById,
-  getSavedWorkouts,
 } from '../../api/DBRequests';
 import WorkoutPerson from '../../assets/images/WorkoutPerson.png';
 import WorkoutExerciseCard from '../../components/WorkoutExerciseCard';
+import { useAuth } from '../../context/AuthProvider';
 
 const Workout = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,11 @@ const Workout = () => {
           if (response?.success && response.data) {
             const workoutData = response.data.workout || response.data;
             setWorkout(workoutData);
-            if (workoutData.isTemplate === false) {
+            if (
+              workoutData.isTemplate === false ||
+              (workoutData.copies &&
+                workoutData.copies.some((copy) => copy.copiedBy === user.id))
+            ) {
               setIsFavorite(true);
             }
           } else {
@@ -84,13 +89,26 @@ const Workout = () => {
 
   const handleToggleFavorite = async () => {
     try {
-      if (isFavorite) {
-        await deleteSavedWorkout(id);
-        setIsFavorite(false);
-        toast.success('Workout removed from favorites!');
+      if (isFavorite) {//check if the workout is saved as favorite
+
+        if (workout.isTemplate) { //check if this workout is an original one, not a copy
+          const match = workout.copies?.find((copy) => copy.copiedBy === user.id);
+          if (match?.id) {
+            await deleteSavedWorkout(match.id);
+            setIsFavorite(false);
+            alert('Workout removed from favorites!');
+          }
+        } else {
+          await deleteSavedWorkout(id);
+          setIsFavorite(false);
+          navigate(`/workouts/${workout.originalWorkoutId}`);
+          toast.success('Workout removed from favorites!');
+        }
+
       } else {
-        await saveWorkoutToFavorites(id);
+        const res = await saveWorkoutToFavorites(id);
         setIsFavorite(true);
+        navigate(`/workouts/${res.data.id}`);
         toast.success('Workout added to favorites!');
       }
     } catch (error) {

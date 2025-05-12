@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import customFetch from '../../api/customFetch';
 import { useNavigate } from 'react-router-dom';
+import { createCustomWorkout } from '../../api/DBRequests';
 
 //  const for styles
 
 const STEP_INDICATOR_STYLE = {
-  width: 900,
+  maxWidth: 500,
+  width: '100%',
   height: 10,
   backgroundColor: '#BBF246',
   borderRadius: 2,
@@ -22,8 +24,12 @@ const CIRCLE_STYLE = {
   width: 55,
   height: 45,
   borderRadius: '50%',
-  backgroundColor: '#EBA919',
   boxShadow: 1,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '1.4rem',
+  backgroundColor: '#EBA919',
 };
 
 const MAIN_CONTAINER_STYLE = {
@@ -45,25 +51,7 @@ const TITLE_STYLE = {
   mb: 6,
 };
 
-const BUTTON_STYLE = {
-  fontSize: 24,
-  fontWeight: 'bold',
-  width: 300,
-  height: 100,
-  color: 'black',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '4px',
-  boxShadow: 3,
-  border: 'none',
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: '#c0c0c0',
-  },
-};
-
-const CustomWorkoutBuilder = () => {
+const CreateCustomWorkout = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     gender: '',
@@ -81,40 +69,12 @@ const CustomWorkoutBuilder = () => {
 
   const handleFinish = async () => {
     try {
-      const requestData = {
-        age: parseInt(formData.age, 10),
-        weight: parseFloat(formData.weight),
-        level: formData.level,
-        gender: formData.gender,
-      };
-
-      console.log('Submitting workout data:', requestData);
-
-      // post request
-
-      const response = await customFetch.post('/api/v1/customized-workout/create', requestData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Workout created:', response.data);
-
+      const data = await createCustomWorkout(formData);
       alert('Your custom workout plan has been created successfully!');
+      const workoutId = data.data._id;
+      navigate(`/custom-workout/${workoutId}`);
 
-      // const handleClick = () => {
-      //   if (!id) {
-      //     console.warn('WorkoutCard clicked but id is missing');
-      //     return;
-      //   }
-      //   navigate(`/workouts/${id}`);
-      // };
-
-      const workoutId = response.data.data._id;
-      console.log('workoutId:', workoutId);
-      navigate(`/workouts/${workoutId}`);
-
-      // form reset
+      // Reset form
       setFormData({
         gender: '',
         age: '',
@@ -149,11 +109,20 @@ const CustomWorkoutBuilder = () => {
         <>
           <Box sx={MAIN_CONTAINER_STYLE}>
             <Typography variant="h4" sx={TITLE_STYLE}>
-              Personal program plan:
+              Build Your Custom Workout:
             </Typography>
             <Box sx={STEP_INDICATOR_STYLE}>
               {[1, 2, 3, 4].map((item) => (
-                <Box key={item} sx={CIRCLE_STYLE} />
+                <Box
+                  key={item}
+                  sx={{
+                    ...CIRCLE_STYLE,
+                    backgroundColor: item <= step ? '#EBA919' : 'gray',
+                    color: 'white',
+                  }}
+                >
+                  {item <= step ? item : ''}
+                </Box>
               ))}
             </Box>
 
@@ -244,21 +213,29 @@ const CustomWorkoutBuilder = () => {
         <>
           <Box sx={{ ...MAIN_CONTAINER_STYLE, color: 'white' }}>
             <Typography variant="h4" sx={TITLE_STYLE}>
-              Personal program plan:
+              Build Your Custom Workout:
             </Typography>
-
             <Box sx={STEP_INDICATOR_STYLE}>
               {[1, 2, 3, 4].map((item) => (
-                <Box key={item} sx={CIRCLE_STYLE} />
+                <Box
+                  key={item}
+                  sx={{
+                    ...CIRCLE_STYLE,
+                    backgroundColor: item <= step ? '#EBA919' : 'gray',
+                  }}
+                >
+                  {item <= step ? item : ''}
+                </Box>
               ))}
             </Box>
 
             <Box
               sx={{
                 backgroundColor: '#D9D9D9',
-                width: 800,
+                width: '100%',
+                maxWidth: 800,
                 height: 200,
-                borderRadius: 1,
+                borderRadius: '4px',
                 px: 8,
               }}
             >
@@ -324,21 +301,30 @@ const CustomWorkoutBuilder = () => {
         <>
           <Box sx={{ ...MAIN_CONTAINER_STYLE, color: 'white' }}>
             <Typography variant="h4" sx={TITLE_STYLE}>
-              Personal program plan:
+              Build Your Custom Workout:
             </Typography>
 
             <Box sx={STEP_INDICATOR_STYLE}>
               {[1, 2, 3, 4].map((item) => (
-                <Box key={item} sx={CIRCLE_STYLE} />
+                <Box
+                  key={item}
+                  sx={{
+                    ...CIRCLE_STYLE,
+                    backgroundColor: item <= step ? '#EBA919' : 'gray',
+                  }}
+                >
+                  {item <= step ? item : ''}
+                </Box>
               ))}
             </Box>
 
             <Box
               sx={{
                 backgroundColor: '#D9D9D9',
-                width: 800,
+                width: '100%',
+                maxWidth: 800,
                 height: 200,
-                borderRadius: 1,
+                borderRadius: '4px',
                 px: 8,
               }}
             >
@@ -405,12 +391,20 @@ const CustomWorkoutBuilder = () => {
       {step === 4 && (
         <Box sx={MAIN_CONTAINER_STYLE}>
           <Typography variant="h4" sx={TITLE_STYLE}>
-            Personal program plan:
+            Build Your Custom Workout:
           </Typography>
-
           <Box sx={STEP_INDICATOR_STYLE}>
             {[1, 2, 3, 4].map((item) => (
-              <Box key={item} sx={CIRCLE_STYLE} />
+              <Box
+                key={item}
+                sx={{
+                  ...CIRCLE_STYLE,
+                  backgroundColor: item <= step ? '#EBA919' : 'gray',
+                  color: 'white',
+                }}
+              >
+                {item <= step ? item : ''}
+              </Box>
             ))}
           </Box>
 
@@ -419,8 +413,10 @@ const CustomWorkoutBuilder = () => {
               sx={{
                 display: 'flex',
                 gap: 2,
-                flexDirection: 'row',
+                flexDirection: { xs: 'column', sm: 'row' },
                 justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'wrap',
               }}
             >
               {['Beginner', 'Intermediate', 'Advanced'].map((level) => (
@@ -430,7 +426,7 @@ const CustomWorkoutBuilder = () => {
                   type="button"
                   onClick={() => handleChange('level')({ target: { value: level } })}
                   sx={{
-                    fontSize: 24,
+                    fontSize: { xs: 18, sm: 20, md: 24 },
                     fontWeight: 'bold',
                     width: 300,
                     height: 100,
@@ -439,11 +435,11 @@ const CustomWorkoutBuilder = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: 1,
+                    borderRadius: '4px',
                     boxShadow: 3,
                     border: 'none',
                     cursor: 'pointer',
-                    mb: 4,
+                    mb: 2,
                     '&:hover': {
                       backgroundColor: formData.level === level ? '#999' : '#c0c0c0',
                     },
@@ -454,12 +450,21 @@ const CustomWorkoutBuilder = () => {
               ))}
             </Box>
 
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2 }}>
+            <Box
+              sx={{
+                mt: 4,
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: { xs: 'column', sm: 'row' },
+                gap: 2,
+                alignItems: 'center',
+              }}
+            >
               <Button
                 variant="outlined"
                 onClick={handleBack}
                 sx={{
-                  mr: 2,
+                  width: { xs: '100%', sm: 'auto' },
                   '&:hover': {
                     color: 'black',
                   },
@@ -471,11 +476,9 @@ const CustomWorkoutBuilder = () => {
               <Button
                 variant="contained"
                 disabled={!formData.level}
-                onClick={() => {
-                  console.log('Finish button clicked, formData:', formData); // Логирование для отладки
-                  handleFinish();
-                }}
+                onClick={handleFinish}
                 sx={{
+                  width: { xs: '100%', sm: 'auto' },
                   backgroundColor: formData.level ? '#BBF246' : '#D9D9D9',
                   color: 'black',
                 }}
@@ -490,4 +493,4 @@ const CustomWorkoutBuilder = () => {
   );
 };
 
-export default CustomWorkoutBuilder;
+export default CreateCustomWorkout;

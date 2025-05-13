@@ -4,7 +4,7 @@ import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { getCustomWorkouts } from '../../api/DBRequests';
-import Banner from '../../assets/images/banner.png';
+import Banner from '../../assets/images/Banner.png';
 import AllWorkouts from '../../components/AllWorkouts';
 import BeginnerWorkouts from '../../components/BeginnerWorkouts';
 

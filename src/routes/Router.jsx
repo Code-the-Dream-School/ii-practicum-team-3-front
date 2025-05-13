@@ -14,7 +14,7 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
 // Pages - Workouts
-import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout'; {/* NAtalia */}
+import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
 import CustomWorkout from '../pages/workouts/CustomWorkout'; 
 import FavoriteWorkouts from '../pages/workouts/FavoriteWorkouts';
 import Workout from '../pages/workouts/Workout';
@@ -40,8 +40,8 @@ const Router = () => {
 
           {/* Workouts Routes */}
           <Route path="/workouts" element={<Workouts />} />
-          <Route path="/custom-workout/:id" element={<CustomWorkout />} />  {/* NAtalia */}
           <Route path="/workouts/favorites" element={<FavoriteWorkouts />} />
+          <Route path="/custom-workout/:id" element={<CustomWorkout />} /> 
           <Route path="/workouts/:id" element={<Workout />} />
           <Route path="/workouts/create" element={<CreateCustomWorkout />} />
           {/* 404 Page */}

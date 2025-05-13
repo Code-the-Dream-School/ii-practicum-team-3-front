@@ -4,18 +4,16 @@ import { Typography, Container, Box, Skeleton, Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getWorkoutById } from '../../api/DBRequests';
 import WorkoutExerciseCard from '../../components/WorkoutExerciseCard';
-import customFetch from '../../api/customFetch';
-
 
 const CustomWorkout = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const observer = useRef(null);
   const itemsRef = useRef([]);
-  const [isSaved, setIsSaved] = useState(false);
+
 
   useEffect(() => {
     const fetchWorkout = async () => {
@@ -63,11 +61,6 @@ const CustomWorkout = () => {
     };
   }, [workout]);
 
-  const handleBackClick = () => {
-    sessionStorage.setItem('scrollToWorkoutCards', 'true');
-    const savedPage = sessionStorage.getItem('workoutsPage') || '1';
-    navigate(`/workouts?page=${savedPage}`);
-  };
 
   if (loading) {
     return (
@@ -98,28 +91,6 @@ const CustomWorkout = () => {
       </Container>
     );
   }
-
-  const handleSaveWorkout = async () => {
-    try {
-      const token = localStorage.getItem('token'); 
-
-      const response = await customFetch.post(
-        `/api/v1/customized-workout/save/${workout.id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setIsSaved(true);
-      alert('You have added the workout to your profile'); 
-
-    } catch (error) {
-      console.error('Error saving workout:', error);
-    }
-  };
-
   return (
     <Container sx={{ py: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}></Box>
@@ -134,27 +105,7 @@ const CustomWorkout = () => {
         <Typography variant="body1" sx={{ textAlign: 'center' }}>
           {workout.description}
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center', // centers horizontally
-            width: '100%',
-          }}
-        >
-          <Button
-            variant="contained"
-            color="secondary"
-            disabled={isSaved} 
-            sx={{
-              textTransform: 'none',
-              width: { xs: '100%', sm: '60%', md: '150px' },
-              mt: 4,
-            }}
-            onClick={handleSaveWorkout}
-          >
-            {isSaved ? 'Added' : 'Add'}
-          </Button>
-        </Box>
+
 
         <Typography variant="h6" mt={4} align="center" padding={2} fontWeight={700}>
           Exercises:

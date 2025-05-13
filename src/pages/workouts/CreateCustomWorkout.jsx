@@ -5,6 +5,7 @@ import customFetch from '../../api/customFetch';
 import { useNavigate } from 'react-router-dom';
 import { createCustomWorkout } from '../../api/DBRequests';
 
+
 //  const for styles
 
 const STEP_INDICATOR_STYLE = {
@@ -70,7 +71,8 @@ const CreateCustomWorkout = () => {
   const handleFinish = async () => {
     try {
       const data = await createCustomWorkout(formData);
-      alert('Your custom workout plan has been created successfully!');
+      // toast.success('Your custom workout plan has been created successfully!');
+      alert('Your custom workout plan has been created successfully and added to your profile!');
       const workoutId = data.data._id;
       navigate(`/custom-workout/${workoutId}`);
 

@@ -31,7 +31,6 @@ const Router = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/exercises" element={<Exercises />} />
           <Route path="/exercises/favorites" element={<FavoriteExercises />} />
-          {/* <Route path="/exercises/:id" element={<ExerciseCard />} />  */}
 
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />

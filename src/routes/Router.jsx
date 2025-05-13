@@ -20,6 +20,8 @@ import AboutPage from '../pages/About';
 import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
 import Workout from '../pages/workouts/Workout';
 import Workouts from '../pages/workouts/Workouts';
+import CustomWorkout from '../pages/workouts/CustomWorkout';
+
 
 const Router = () => {
   return (
@@ -39,6 +41,7 @@ const Router = () => {
 
           {/* Workouts Routes */}
           <Route path="/workouts" element={<Workouts />} />
+          <Route path="/custom-workout/:id" element={<CustomWorkout />} /> 
           <Route path="/workouts/:id" element={<Workout />} />
           <Route path="/workouts/create" element={<CreateCustomWorkout />} />
           {/* 404 Page */}

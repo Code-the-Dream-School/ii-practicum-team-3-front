@@ -26,3 +26,20 @@ export const getWorkoutById = async (id) => {
     throw error;
   }
 };
+
+export const createCustomWorkout = async (formData) => {
+  const requestData = {
+    age: parseInt(formData.age, 10),
+    weight: parseFloat(formData.weight),
+    level: formData.level,
+    gender: formData.gender,
+  };
+
+  const response = await customFetch.post('/api/v1/customized-workout/create', requestData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};

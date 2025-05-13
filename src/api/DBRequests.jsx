@@ -131,3 +131,48 @@ export const getSavedWorkoutById = async (id) => {
   }
 }; 
 
+export const createCustomWorkout = async (formData) => {
+  const requestData = {
+    age: parseInt(formData.age, 10),
+    weight: parseFloat(formData.weight),
+    level: formData.level,
+    gender: formData.gender,
+  };
+
+  const response = await customFetch.post('/api/v1/customized-workout/create', requestData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};
+
+
+export const getCustomWorkouts = async () => {
+  try {
+    const response = await customFetch.get('/api/v1/customized-workout/all');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch custom workout:', error);
+    return { success: false, data: null };
+  }
+};
+
+
+export const deleteCustomWorkout = async (id) => {
+  try {
+    const response = await customFetch.delete(`/api/v1/customized-workout/${id}`);
+    if (response.data.success) {
+      console.log('Workout deleted successfully');
+      return response.data; 
+    } else {
+      console.log('Failed to delete workout');
+      return { success: false };
+    }
+  } catch (error) {
+    console.error('Error deleting workout:', error);
+    return { success: false };
+  }
+};
+

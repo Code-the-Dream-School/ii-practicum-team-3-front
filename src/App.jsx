@@ -12,7 +12,7 @@ function App() {
     <ThemeProvider theme={baseTheme}>
       <CssBaseline />
       <Router />
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -21,7 +21,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored" // или 'light', 'dark' по желанию
+        theme="colored" // 'light' or 'dark'
       />
     </ThemeProvider>
   );

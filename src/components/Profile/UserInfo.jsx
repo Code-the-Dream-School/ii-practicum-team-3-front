@@ -44,7 +44,6 @@ const UserInfo = () => {
       const fetchUserInfo = async () => { // if no data, get from server
         try {
           const res = await customFetch.get('/api/v1/user/profile');
-          console.log('User info from server:', res.data);
           setFormData({
             firstName: res.data.firstName || '',
             gender: res.data.gender || '',
@@ -110,15 +109,14 @@ const UserInfo = () => {
     }
   };
 
-
   return (
     <Card sx={{ height: '100%', padding: '1em'}}>
-      <CardContent>
-        <Stack alignItems="center" spacing={4}>
+      <CardContent sx={{ backgroundColor: '#f9f9f9', borderRadius: 2 }}>
+        <Stack alignItems="center" spacing={4} >
+        <Typography variant="h5">Hi, {formData.firstName || 'User'}!</Typography>
           <Avatar sx={{ width: 85, height: 85, bgcolor: getAvatarColor(formData.fitnessLevel)}}>
             {formData.firstName ? formData.firstName[0].toUpperCase() : 'U'}
           </Avatar>
-          <Typography variant="h5">{formData.firstName || 'User'}</Typography>
         </Stack>
         {editMode ? (
           <Stack spacing={2} sx={{ mt: 2 }}>
@@ -153,7 +151,7 @@ const UserInfo = () => {
 
             <TextField
               name="weight"
-              label="Weight (kg)"
+              label="Weight (lb)"
               type="number"
               value={formData.weight}
               onChange={handleChange}
@@ -197,7 +195,7 @@ const UserInfo = () => {
             </Typography>
             <Typography sx={{ fontSize: '1.1rem' }}>
               <strong>Weight: </strong>
-              {formData.weight} kg
+              {formData.weight} lb
             </Typography>
             <Typography sx={{ fontSize: '1.1rem' }}>
               <strong>Level: </strong>

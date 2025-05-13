@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 
-import { Card, CardContent, CardActions, Typography, Button, Box, List, ListItem } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  Box,
+  List,
+  ListItem
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 
@@ -22,10 +31,10 @@ function ExerciseCard({
   useEffect(() => {
     const checkIfFavorite = async () => {
       try {
-        const res = await getSavedExercises(); // Получаем все сохраненные упражнения
+        const res = await getSavedExercises();
         if (res.success) {
           const isSaved = res.data.some((exercise) => exercise._id === _id);
-          setIsFavorite(isSaved); // Обновляем состояние, если упражнение в избранном
+          setIsFavorite(isSaved);
         }
       } catch (error) {
         console.error('Error checking favorite status:', error);
@@ -38,19 +47,17 @@ function ExerciseCard({
   const handleToggleFavorite = async () => {
     try {
       if (isFavorite) {
-        // Если упражнение уже в избранном, удаляем его
         const res = await deleteSavedExercise(_id);
         if (res.success) {
-          setIsFavorite(false); // Обновляем статус
+          setIsFavorite(false);
           toast.success('Exercise removed from favorites!');
         } else {
           toast.error('Failed to remove exercise from favorites!');
         }
       } else {
-        // Если упражнение не в избранном, добавляем его
         const res = await saveExerciseToFavorites(_id);
         if (res.success) {
-          setIsFavorite(true); // Обновляем статус
+          setIsFavorite(true);
           toast.success('Exercise added to favorites!');
         } else {
           toast.error('Failed to add exercise to favorites!');
@@ -151,10 +158,10 @@ function ExerciseCard({
           size="small"
           sx={{
             textTransform: 'none',
-            backgroundColor: isFavorite ? theme.palette.error.main : theme.palette.secondary.main,
+            backgroundColor: isFavorite ? theme.palette.accent.main : theme.palette.secondary.main,
             color: '#fff',
             '&:hover': {
-              backgroundColor: isFavorite ? theme.palette.error.dark : theme.palette.secondary.dark,
+              backgroundColor: isFavorite ? theme.palette.accent.dark : theme.palette.secondary.dark,
             },
           }}
           onClick={handleToggleFavorite}

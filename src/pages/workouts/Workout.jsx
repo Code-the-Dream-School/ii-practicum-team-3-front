@@ -193,7 +193,7 @@ const Workout = () => {
             <Typography variant="body1">{workout.description}</Typography>
             <Button
               variant="contained"
-              color={isFavorite ? 'error' : 'secondary'}
+              color={isFavorite ? 'accent' : 'secondary'}
               sx={{ width: { xs: '100%', sm: '60%', md: '150px' } }}
               onClick={handleToggleFavorite}
             >

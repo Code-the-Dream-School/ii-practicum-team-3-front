@@ -1,6 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-// import ExerciseCard from '../components/ExerciseCard';
 // Layouts
 import MainLayout from '../layouts/MainLayout';
 // Pages
@@ -15,7 +14,8 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
 // Pages - Workouts
-import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
+import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout'; {/* NAtalia */}
+import CustomWorkout from '../pages/workouts/CustomWorkout'; 
 import FavoriteWorkouts from '../pages/workouts/FavoriteWorkouts';
 import Workout from '../pages/workouts/Workout';
 import Workouts from '../pages/workouts/Workouts';
@@ -41,6 +41,7 @@ const Router = () => {
 
           {/* Workouts Routes */}
           <Route path="/workouts" element={<Workouts />} />
+          <Route path="/custom-workout/:id" element={<CustomWorkout />} />  {/* NAtalia */}
           <Route path="/workouts/favorites" element={<FavoriteWorkouts />} />
           <Route path="/workouts/:id" element={<Workout />} />
           <Route path="/workouts/create" element={<CreateCustomWorkout />} />

@@ -139,25 +139,27 @@ function Home() {
           {[
             'Sign Up & Set Up Your Profile',
             'Start with Workout',
-            'Customize your personal plan',
-            'Track your program',
+            'Get Your Custom Workout',
+            'Manage Your Workouts and Exercises',
           ].map((step, index) => (
             <Box
               key={index}
               sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flex: '1 1 240px',
-              height: '64px',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flex: '1 1 240px',
+                height: '64px',
                 backgroundColor: theme.palette.secondary.main,
                 color: theme.palette.primary.main,
                 px: 3,
                 py: 2,
                 fontWeight: 'bold',
                 borderRadius: '10px',
-                minWidth: '240px', maxWidth: '240px', width: '100%',
+                minWidth: '240px',
+                maxWidth: '240px',
+                width: '100%',
               }}
             >
               <Typography sx={{ fontSize: '0.9rem', fontWeight: 'bold' }}>

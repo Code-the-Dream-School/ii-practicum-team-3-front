@@ -56,8 +56,8 @@ const Favorites = () => {
     <Card 
       sx={{
         height: '100%',
-        px: '3em',
-        py: '1em',
+        px: { xs: 2, sm: 3, md: '3em' },
+        py: { xs: 1, sm: '1em' },
       }}
     >
       <CardContent>
@@ -94,7 +94,12 @@ const Favorites = () => {
               {favoriteExercises.length}
             </Box>
           </Typography>
-          <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+          <Stack
+            direction="row"
+            gap={2}
+            spacing={1}
+            sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+          >
             {favoriteExercises.slice(0, 4).map((ex) => (
               <MiniCard key={ex._id} title={ex.name} />
             ))}
@@ -109,7 +114,14 @@ const Favorites = () => {
             View All Exercises
           </Button>
         </Box>
-        <Box sx={{ border: '1px solid #e1e0e2', borderRadius: 2, px: 3, py: 3 }}>
+        <Box 
+          sx={{
+            border: '1px solid #e1e0e2',
+            borderRadius: 2,
+            px: { xs: 2, sm: 3 },
+            py: { xs: 2, sm: 3 },
+          }}
+        >
           <Typography
             variant="body1"
             align="left"
@@ -145,7 +157,7 @@ const Favorites = () => {
             spacing={1}
             sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
           >
-            {favoriteWorkouts.slice(0, 5).map((w) => (
+            {favoriteWorkouts.slice(0, 4).map((w) => (
               <MiniCard key={w._id} title={w.title || w.name} />
             ))}
           </Stack>

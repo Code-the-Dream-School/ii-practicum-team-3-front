@@ -23,6 +23,9 @@ const CustomWorkoutCardPreview = ({ workout, onRemove }) => {
         cursor: 'pointer',
         transition: '0.2s',
         '&:hover': { boxShadow: 6 },
+        maxWidth: 400,
+        width: '100%',
+        mx: 'auto',
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
@@ -38,7 +41,13 @@ const CustomWorkoutCardPreview = ({ workout, onRemove }) => {
             ? workout.description.slice(0, 100) + '...'
             : workout.description}
         </Typography>
-        <Button variant="outlined" color="warning" size="small" onClick={handleRemoveClick}>
+        <Button
+          variant="outlined"
+          color="warning"
+          size="small"
+          onClick={handleRemoveClick}
+          sx={{ width: 'auto', alignSelf: 'center' }}
+        >
           Remove
         </Button>
       </Box>

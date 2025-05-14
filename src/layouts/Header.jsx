@@ -55,7 +55,7 @@ function Header() {
           <Box
             sx={{
               flex: '1',
-              display: { xs: 'none', sm: 'flex' },
+              display: { xs: 'none', md: 'flex' },
               justifyContent: 'flex-end',
               gap: '1rem',
             }}
@@ -77,7 +77,7 @@ function Header() {
           </Box>
           {/* Burger Icon */}
           <IconButton
-            sx={{ display: { xs: 'block', sm: 'none' } }}
+            sx={{ display: { xs: 'block', md: 'none' } }}
             edge="start"
             color="inherit"
             aria-label="menu"

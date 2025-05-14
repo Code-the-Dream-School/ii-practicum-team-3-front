@@ -14,6 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 
 import { getSavedExercises, saveExerciseToFavorites, deleteSavedExercise } from '../api/DBRequests';
+import { useAuth } from '../context/AuthProvider';
 
 function ExerciseCard({
   _id,
@@ -27,6 +28,7 @@ function ExerciseCard({
 }) {
   const theme = useTheme();
   const [isFavorite, setIsFavorite] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const checkIfFavorite = async () => {
@@ -153,22 +155,24 @@ function ExerciseCard({
           </>
         )}
       </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
-          size="small"
-          sx={{
-            textTransform: 'none',
-            backgroundColor: isFavorite ? theme.palette.accent.main : theme.palette.secondary.main,
-            color: '#fff',
-            '&:hover': {
-              backgroundColor: isFavorite ? theme.palette.accent.dark : theme.palette.secondary.dark,
-            },
-          }}
-          onClick={handleToggleFavorite}
-        >
-          {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-        </Button>
-      </CardActions>
+      {user && (
+        <CardActions sx={{ justifyContent: 'flex-end' }}>
+          <Button
+            size="small"
+            sx={{
+              textTransform: 'none',
+              backgroundColor: isFavorite ? theme.palette.accent.main : theme.palette.secondary.main,
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: isFavorite ? theme.palette.accent.dark : theme.palette.secondary.dark,
+              },
+            }}
+            onClick={handleToggleFavorite}
+          >
+            {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }

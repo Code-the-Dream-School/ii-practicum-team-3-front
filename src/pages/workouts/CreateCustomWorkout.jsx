@@ -1,8 +1,10 @@
-import Slider from '@mui/material/Slider';
 import React, { useState } from 'react';
+
 import { Box, Button, Typography } from '@mui/material';
-import customFetch from '../../api/customFetch';
+import Slider from '@mui/material/Slider';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import { createCustomWorkout } from '../../api/DBRequests';
 
 
@@ -72,7 +74,7 @@ const CreateCustomWorkout = () => {
     try {
       const data = await createCustomWorkout(formData);
       // toast.success('Your custom workout plan has been created successfully!');
-      alert('Your custom workout plan has been created successfully and added to your profile!');
+      toast.success('Your custom workout plan has been created successfully and added to your profile!');
       const workoutId = data.data._id;
       navigate(`/custom-workout/${workoutId}`);
 
@@ -99,7 +101,7 @@ const CreateCustomWorkout = () => {
         errorMessage = error.response.data.message;
       }
 
-      alert(errorMessage);
+      toast.error(errorMessage);
     }
   };
 

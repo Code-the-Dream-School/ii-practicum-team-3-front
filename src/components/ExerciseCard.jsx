@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import {
   Card,
   CardContent,
@@ -6,11 +8,15 @@ import {
   Button,
   Box,
   List,
-  ListItem,
+  ListItem
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { toast } from 'react-toastify';
+
+import { getSavedExercises, saveExerciseToFavorites, deleteSavedExercise } from '../api/DBRequests';
 
 function ExerciseCard({
+  _id,
   name,
   bodyPart,
   equipment,
@@ -20,6 +26,49 @@ function ExerciseCard({
   instructions,
 }) {
   const theme = useTheme();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const checkIfFavorite = async () => {
+      try {
+        const res = await getSavedExercises();
+        if (res.success) {
+          const isSaved = res.data.some((exercise) => exercise._id === _id);
+          setIsFavorite(isSaved);
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+
+    checkIfFavorite();
+  }, [_id]);
+
+  const handleToggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        const res = await deleteSavedExercise(_id);
+        if (res.success) {
+          setIsFavorite(false);
+          toast.success('Exercise removed from favorites!');
+        } else {
+          toast.error('Failed to remove exercise from favorites!');
+        }
+      } else {
+        const res = await saveExerciseToFavorites(_id);
+        if (res.success) {
+          setIsFavorite(true);
+          toast.success('Exercise added to favorites!');
+        } else {
+          toast.error('Failed to add exercise to favorites!');
+        }
+      }
+    } catch (error) {
+      console.error('Favorite toggle error:', error.message || error);
+      toast.error(error?.message || 'Something went wrong');
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -109,11 +158,15 @@ function ExerciseCard({
           size="small"
           sx={{
             textTransform: 'none',
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: isFavorite ? theme.palette.accent.main : theme.palette.secondary.main,
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: isFavorite ? theme.palette.accent.dark : theme.palette.secondary.dark,
+            },
           }}
-          onClick={() => console.log('Exercise added to favorites')}
+          onClick={handleToggleFavorite}
         >
-          Add
+          {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
         </Button>
       </CardActions>
     </Card>

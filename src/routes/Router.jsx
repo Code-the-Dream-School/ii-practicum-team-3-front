@@ -2,25 +2,23 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 // Layouts
 import MainLayout from '../layouts/MainLayout';
-
-// Pages - Auth
+// Pages
+import AboutPage from '../pages/About';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ResetPassword from '../pages/auth/ResetPassword';
-
-// Pages
 import Exercises from '../pages/Exercises';
+import FavoriteExercises from '../pages/FavoriteExercises';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
-import AboutPage from '../pages/About';
-
 // Pages - Workouts
 import CreateCustomWorkout from '../pages/workouts/CreateCustomWorkout';
+import CustomWorkout from '../pages/workouts/CustomWorkout'; 
+import FavoriteWorkouts from '../pages/workouts/FavoriteWorkouts';
 import Workout from '../pages/workouts/Workout';
 import Workouts from '../pages/workouts/Workouts';
-import CustomWorkout from '../pages/workouts/CustomWorkout';
 
 
 const Router = () => {
@@ -32,6 +30,7 @@ const Router = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/exercises" element={<Exercises />} />
+          <Route path="/exercises/favorites" element={<FavoriteExercises />} />
 
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
@@ -41,6 +40,7 @@ const Router = () => {
 
           {/* Workouts Routes */}
           <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/favorites" element={<FavoriteWorkouts />} />
           <Route path="/custom-workout/:id" element={<CustomWorkout />} /> 
           <Route path="/workouts/:id" element={<Workout />} />
           <Route path="/workouts/create" element={<CreateCustomWorkout />} />

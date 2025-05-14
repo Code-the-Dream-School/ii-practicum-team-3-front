@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 
-import { Typography, Container, Box, Skeleton, Button } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Typography, Container, Box, Skeleton } from '@mui/material';
+import { useParams } from 'react-router-dom';
+
 import { getWorkoutById } from '../../api/DBRequests';
 import WorkoutExerciseCard from '../../components/WorkoutExerciseCard';
 
@@ -13,7 +14,6 @@ const CustomWorkout = () => {
   const [error, setError] = useState('');
   const observer = useRef(null);
   const itemsRef = useRef([]);
-
 
   useEffect(() => {
     const fetchWorkout = async () => {
@@ -61,7 +61,6 @@ const CustomWorkout = () => {
     };
   }, [workout]);
 
-
   if (loading) {
     return (
       <Container sx={{ py: 4 }}>
@@ -105,7 +104,6 @@ const CustomWorkout = () => {
         <Typography variant="body1" sx={{ textAlign: 'center' }}>
           {workout.description}
         </Typography>
-
 
         <Typography variant="h6" mt={4} align="center" padding={2} fontWeight={700}>
           Exercises:

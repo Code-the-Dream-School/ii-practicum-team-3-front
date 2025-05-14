@@ -64,7 +64,7 @@ const BeginnerWorkouts = () => {
   };
 
   return (
-    <Box sx={{ my: 8 }}>
+    <Box sx={{ my: 8, mb:8 }}>
       <Typography
         variant="h4"
         align="center"

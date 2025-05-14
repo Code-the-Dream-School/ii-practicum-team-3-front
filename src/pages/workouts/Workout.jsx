@@ -1,30 +1,54 @@
 import { useEffect, useState, useRef } from 'react';
 
 import { Typography, Container, Box, Skeleton, Button } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import { getWorkoutById } from '../../api/DBRequests';
+import {
+  getWorkoutById,
+  saveWorkoutToFavorites,
+  deleteSavedWorkout,
+  getSavedWorkoutById,
+} from '../../api/DBRequests';
 import WorkoutPerson from '../../assets/images/WorkoutPerson.png';
 import WorkoutExerciseCard from '../../components/WorkoutExerciseCard';
+import { useAuth } from '../../context/AuthProvider';
 
 const Workout = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
+
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const observer = useRef(null);
   const itemsRef = useRef([]);
+  const backPath = location.state?.from || '/workouts';
 
   useEffect(() => {
     const fetchWorkout = async () => {
       try {
-        const response = await getWorkoutById(id);
-        if (response?.success && response.data) {
-          setWorkout(response.data);
-        } else {
-          setError('Workout not found.');
-        }
+        const response = location.state?.isSaved
+          ? await getSavedWorkoutById(id)
+          : await getWorkoutById(id);
+
+          if (response?.success && response.data) {
+            const workoutData = response.data.workout || response.data;
+            setWorkout(workoutData);
+            if (
+              workoutData.isTemplate === false ||
+              (workoutData.copies &&
+                workoutData.copies.some((copy) => copy.copiedBy === user.id))
+            ) {
+              setIsFavorite(true);
+            }
+          } else {
+            setError('Workout not found.');
+          }
       } catch (err) {
         setError(`Failed to load workout: ${err.message || err}`);
         console.error('API Error:', err);
@@ -35,6 +59,7 @@ const Workout = () => {
 
     fetchWorkout();
   }, [id]);
+
 
   useEffect(() => {
     if (!workout || !workout.exercises) return;
@@ -62,10 +87,34 @@ const Workout = () => {
     };
   }, [workout]);
 
-  const handleBackClick = () => {
-    sessionStorage.setItem('scrollToWorkoutCards', 'true');
-    const savedPage = sessionStorage.getItem('workoutsPage') || '1';
-    navigate(`/workouts?page=${savedPage}`);
+  const handleToggleFavorite = async () => {
+    try {
+      if (isFavorite) {//check if the workout is saved as favorite
+
+        if (workout.isTemplate) { //check if this workout is an original one, not a copy
+          const match = workout.copies?.find((copy) => copy.copiedBy === user.id);
+          if (match?.id) {
+            await deleteSavedWorkout(match.id);
+            setIsFavorite(false);
+            alert('Workout removed from favorites!');
+          }
+        } else {
+          await deleteSavedWorkout(id);
+          setIsFavorite(false);
+          navigate(`/workouts/${workout.originalWorkoutId}`);
+          toast.success('Workout removed from favorites!');
+        }
+
+      } else {
+        const res = await saveWorkoutToFavorites(id);
+        setIsFavorite(true);
+        navigate(`/workouts/${res.data.id}`);
+        toast.success('Workout added to favorites!');
+      }
+    } catch (error) {
+      console.error('Favorite toggle error:', error.message || error);
+      toast.error(error?.message || 'Something went wrong');
+    }
   };
 
   if (loading) {
@@ -103,18 +152,19 @@ const Workout = () => {
       <Button
         variant="outlined"
         color="primary"
-        sx={{ mb: 2, textTransform: 'none', alignSelf: { xs: 'center', md: 'flex-start' } }}
-        onClick={handleBackClick}
+        sx={{ mb: 2, textTransform: 'none' }}
+        onClick={() => navigate(backPath)}
       >
         ← Back
       </Button>
+
       <Box sx={{ bgcolor: 'white', p: { xs: 2, sm: 3, md: 4 }, borderRadius: 2, boxShadow: 1 }}>
         <Box
           sx={{
             display: 'flex',
-            flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+            flexDirection: { xs: 'column', md: 'row' },
             alignItems: { xs: 'center', md: 'flex-start' },
-            gap: { xs: 3, sm: 3, md: 5 },
+            gap: { xs: 3, md: 5 },
           }}
         >
           <Box
@@ -123,19 +173,18 @@ const Workout = () => {
             alt="Workout preview"
             sx={{
               width: { xs: '100%', sm: '80%', md: '200px' },
-              height: 'auto',
               borderRadius: 2,
               boxShadow: 3,
               objectFit: 'cover',
             }}
           />
-          <Box
+          <Box 
             sx={{
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
               width: '100%',
-              maxWidth: '600px',
+              maxWidth: '600px'
             }}
           >
             <Typography variant="h5" gutterBottom>
@@ -144,21 +193,19 @@ const Workout = () => {
             <Typography variant="body1">{workout.description}</Typography>
             <Button
               variant="contained"
-              color="secondary"
-              sx={{
-                textTransform: 'none',
-                width: { xs: '100%', sm: '60%', md: '150px' },
-                alignSelf: { xs: 'center', md: 'flex-start' },
-              }}
-              onClick={() => console.warn('Workout added to favorites')}
+              color={isFavorite ? 'accent' : 'secondary'}
+              sx={{ width: { xs: '100%', sm: '60%', md: '150px' } }}
+              onClick={handleToggleFavorite}
             >
-              Add
+              {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
             </Button>
           </Box>
         </Box>
+
         <Typography variant="h6" mt={4} align="center" padding={2} fontWeight={700}>
           Exercises:
         </Typography>
+
         <Box
           sx={{
             display: 'grid',

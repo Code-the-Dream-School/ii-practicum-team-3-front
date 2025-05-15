@@ -37,7 +37,14 @@ const Router = () => {
               </PrivateRoute>
             }
           />
-          <Route path="/exercises" element={<Exercises />} />
+          <Route
+            path="/exercises"
+            element={
+              <PrivateRoute>
+                <Exercises />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/exercises/favorites"
             element={
@@ -54,7 +61,14 @@ const Router = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Workouts Routes */}
-          <Route path="/workouts" element={<Workouts />} />
+          <Route
+            path="/workouts"
+            element={
+              <PrivateRoute>
+                <Workouts />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/workouts/favorites"
             element={

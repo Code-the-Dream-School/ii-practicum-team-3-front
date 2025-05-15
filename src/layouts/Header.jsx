@@ -49,7 +49,7 @@ function Header() {
               />
             </Link>
           </Box>
-          <Box sx={{ flex: '2', display: { xs: 'none', sm: 'flex' }, justifyContent: 'center' }}>
+          <Box sx={{ flex: '2', display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             <Navbar />
           </Box>
           <Box

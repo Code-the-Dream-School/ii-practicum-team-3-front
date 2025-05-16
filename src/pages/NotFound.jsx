@@ -1,6 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import NotFoundImage from "../../images/404.png";
+
+import NotFoundImage from "../assets/images/404.png";
 
 function NotFound() {
   const navigate = useNavigate();

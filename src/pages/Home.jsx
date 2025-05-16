@@ -103,7 +103,7 @@ function Home() {
         >
           <Box
             component="img"
-            src="/images/man_woman.png"
+            src="./src/assets/images/man_woman.png"
             alt="Fitness Man and Woman"
             sx={{
               width: '100%',
@@ -208,7 +208,7 @@ function Home() {
         >
           {/* Star background */}
           <img
-            src="/images/star-bg.png"
+            src="./src/assets/images/star-bg.png"
             alt="Decorative Star Shape"
             style={{
               position: 'absolute',
@@ -222,7 +222,7 @@ function Home() {
 
           {/* Girl image */}
           <img
-            src="/images/fitness-girl.png"
+            src="./src/assets/images/fitness-girl.png"
             alt="Illustration of Fitness Girl"
             style={{
               position: 'absolute',

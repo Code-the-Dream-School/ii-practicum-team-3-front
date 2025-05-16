@@ -20,10 +20,10 @@ const Profile = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          gap: 4,
+          flexDirection: { xs: 'column', md: 'column', lg: 'row' },
+          gap: { xs: 1, md: 2 },
           justifyContent: 'space-between',
-          p: 2,
+          p: { xs: 1, md: 2 },
         }}
       >
         <Box

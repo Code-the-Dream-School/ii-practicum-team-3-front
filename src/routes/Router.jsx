@@ -1,5 +1,6 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
+import PrivateRoute from './PrivateRoute';
 // Layouts
 import MainLayout from '../layouts/MainLayout';
 // Pages
@@ -28,9 +29,30 @@ const Router = () => {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/exercises" element={<Exercises />} />
-          <Route path="/exercises/favorites" element={<FavoriteExercises />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/exercises"
+            element={
+              <PrivateRoute>
+                <Exercises />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/exercises/favorites"
+            element={
+              <PrivateRoute>
+                <FavoriteExercises />
+              </PrivateRoute>
+            }
+          />
 
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
@@ -39,11 +61,46 @@ const Router = () => {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Workouts Routes */}
-          <Route path="/workouts" element={<Workouts />} />
-          <Route path="/workouts/favorites" element={<FavoriteWorkouts />} />
-          <Route path="/custom-workout/:id" element={<CustomWorkout />} /> 
-          <Route path="/workouts/:id" element={<Workout />} />
-          <Route path="/workouts/create" element={<CreateCustomWorkout />} />
+          <Route
+            path="/workouts"
+            element={
+              <PrivateRoute>
+                <Workouts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/workouts/favorites"
+            element={
+              <PrivateRoute>
+                <FavoriteWorkouts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/custom-workout/:id"
+            element={
+              <PrivateRoute>
+                <CustomWorkout />
+              </PrivateRoute>
+            }
+          /> 
+          <Route
+            path="/workouts/:id"
+            element={
+              <PrivateRoute>
+                <Workout />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/workouts/create"
+            element={
+              <PrivateRoute>
+                <CreateCustomWorkout />
+              </PrivateRoute>
+            }
+          />
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
           <Route path="/404" element={<NotFound />} />

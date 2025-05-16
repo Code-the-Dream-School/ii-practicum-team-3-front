@@ -4,7 +4,15 @@ import { bodyParts, equipments, targets } from '../constants/filtersData';
 
 function ExercisesFilters({ bodyPart, setBodyPart, equipment, setEquipment, target, setTarget }) {
   return (
-    <Box sx={{ display: 'flex', gap: 2, mb: 4, justifyContent: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        gap: 2, mb: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Select value={bodyPart} onChange={(e) => setBodyPart(e.target.value)} displayEmpty>
         {bodyParts.map(({ value, label }) => (
           <MenuItem key={value} value={value}>

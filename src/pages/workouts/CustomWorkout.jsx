@@ -5,10 +5,11 @@ import { useParams } from 'react-router-dom';
 
 import { getWorkoutById } from '../../api/DBRequests';
 import WorkoutExerciseCard from '../../components/WorkoutExerciseCard';
+import { useAuth } from '../../context/AuthProvider';
 
 const CustomWorkout = () => {
   const { id } = useParams();
-
+  const { user } = useAuth();
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -94,11 +95,11 @@ const CustomWorkout = () => {
     <Container sx={{ py: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}></Box>
       <Box sx={{ bgcolor: 'white', p: { xs: 2, sm: 3, md: 4 }, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center' }}>
-          Here is your Custom Workout {workout.level} level
+        <Typography variant="h5" component="h1" gutterBottom sx={{ textAlign: 'center' }}>
+          {user?.firstName ? `Hi, ${user.firstName}! ` : ''} Here is your Custom Workout for the {workout.level} level
         </Typography>
 
-        <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', fontWeight: 'bold' }}>
           {workout.name}
         </Typography>
         <Typography variant="body1" sx={{ textAlign: 'center' }}>

@@ -134,7 +134,13 @@ function Exercises() {
           )}
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-          <Pagination count={totalPages} page={page} onChange={handlePageChange} color="primary" />
+          <Pagination
+            count={totalPages}
+            page={page}
+            sx={{ mb:4}}
+            onChange={handlePageChange}
+            color="primary"
+          />
         </Box>
       </Container>
     </Box>

@@ -3,6 +3,10 @@
 Welcome to the **front-end** repository for **Fitness App** — a full-stack application that connects to a Node.js backend API to manage **user authentication**, **workouts**, **exercises**, and **user profiles**.
 It provides a React-based interface for users to interact with their fitness data seamlessly.
 
+## Useful Links 
+- [Backend Repository](https://github.com/Code-the-Dream-School/ii-practicum-team-3-back)
+- [Live app](https://fitnessappsadcat.netlify.app/)
+
 
 ## Technologies Used
 **Frontend Stack:**
@@ -77,6 +81,7 @@ vite.config.js         # Vite configuration
 README.md              # Project README
 ```
 
+
 ## Features
 - User authentication with protected routes (login, sign-up, password reset/change)
 - Save exercises and workouts to favorites (available in Profile)
@@ -84,7 +89,7 @@ README.md              # Project README
 - Create custom workout
 
 
-## Script
+## Scripts
 ```bash
 npm run dev               # Run development server
 npm run build             # Build for production
@@ -94,11 +99,6 @@ npm run lint:fix          # Fix ESLint issues
 npm run prettier:check    # Check Prettier formatting
 npm run prettier:write    # Format code with Prettier
 ```
-
-
-## Useful Links 
-- [Backend Repository](https://github.com/Code-the-Dream-School/ii-practicum-team-3-back)
-- [Live app](https://fitnessappsadcat.netlify.app/)
 
 ## Authors
 - [Alena Danilchenko](https://github.com/anelka777)

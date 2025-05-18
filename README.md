@@ -1,31 +1,105 @@
-# Front-End Repo for Node/React Practicum
+# Fitness App: Front-End Repository
 
-This will be the front-end for your team's practicum project.
+Welcome to the **front-end** repository for **Fitness App** — a full-stack application that connects to a Node.js backend API to manage **user authentication**, **workouts**, **exercises**, and **user profiles**.
+It provides a React-based interface for users to interact with their fitness data seamlessly.
 
-It is suggested that you run these instructions **after** you setup the back-end server first.
-You can go through these steps during your first group meeting in case you need assistance from your mentors.
 
-You will have two folders inside one team folder (one for front-end and one for back-end). Name the parent folder something appropriate (in the below example we title it "Practicum Project"). Then clone directly (do not fork and clone) the front and back repos while inside the parent ("Practicum Project") project folder.
+## Technologies Used
+**Frontend Stack:**
+- [React](https://reactjs.org/) - core UI library
+- [React Router DOM v7](https://reactrouter.com/) - client-side routing
+- [Vite](https://vitejs.dev/) - fast build tool and dev server
+- [Axios](https://axios-http.com/) - HTTP client for API requests
+- [MUI (Material UI)](https://mui.com/) - UI component library
+- [Emotion](https://emotion.sh/docs/introduction) - CSS-in-JS styling (used by MUI)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction) - notification system
 
-![folders](images/folder_structure.png)
+**Tooling & Code Quality:**
+- [ESLint](https://eslint.org/) - JavaScript linter
+- [Prettier](https://prettier.io/) - code formatter
 
-> The front-end app (React) will be running on port 5173. The back-end server will be running on port 8000. You will need to run both the front-end app and the back-end server at the same time to test your app.
 
-### Setting up local development environment
+## Installation
+Create a folder to contain both the front-end and backend repos.
+Clone the frontend and back-end repos:
+```bash
+git clone https://github.com/Code-the-Dream-School/ii-practicum-team-3-front.git
+git clone https://github.com/Code-the-Dream-School/ii-practicum-team-3-back.git
+```
+Navigate to the frontend folder and install dependencies:
+```bash
+cd ii-practicum-team-3-front
+npm install
+```
 
-1. Clone this repository to the folder that was already created for both the front-end and back-end repos
-2. Run `npm install` to install dependencies
-3. Pull the latest version of the `main` branch (when needed)
-4. Run `npm run dev` to start the development server
-5. Open http://localhost:5173 with your browser to see the data received the back-end server.
-6. Now you have your front-end and back-end running locally!
 
-#### Running the front-end server in Visual Studio Code
+## Running the App
+Start the development server:
+```bash
+npm run dev
+```
 
-Note: In the below example, the group's front-end repository was named `bb-practicum-team1-front` and the back-end repository was named `bb-practicum-team-1-back`. Your repository will have a different name, but the rest should look the same.
 
-![vsc running](images/front-end-running-vsc.png)
+## Environment Variables
+Create a .env file in the root directory based on the provided .env.example:
+```bash
+VITE_API_BASE_URL=http://localhost:3000
+```
 
-#### Running the front-end server in the browser
 
-![browser running](images/front-end-running-browser.png)
+## Project Structure
+``` bash
+src/                   # Main source code
+├── api/               # API calls
+├── assets/            # Images and static assets
+├── components/        # Reusable UI components
+├── constants/         # Application constants
+├── context/           # React context providers
+├── hooks/             # Custom React hooks
+├── layout/            # Layout components
+├── pages/             # Route-level pages
+├── routes/            # Route definitions
+├── styles/            # Global and component styles
+├── util/              # Utility functions/helpers
+├── App.jsx            # Root React component
+├── main.jsx           # Application entry point
+├── app.css            # Global styles for app
+└── index.css          # Additional global CSS
+
+.env.example           # Environment variable example
+.eslintrc.json         # ESLint configuration
+.gitignore             # Git ignore rules
+.prettierrc            # Prettier configuration
+index.html             # Main HTML file
+package-lock.json      # Package lock file
+package.json           # Package manifest
+vite.config.js         # Vite configuration
+README.md              # Project README
+```
+
+## Features
+- User authentication with protected routes (login, sign-up, password reset/change)
+- Save exercises and workouts to favorites (available in Profile)
+- Update personal user information
+- Create custom workout
+
+
+## Script
+```bash
+npm run dev               # Run development server
+npm run build             # Build for production
+npm run preview           # Preview production build
+npm run lint              # Run ESLint
+npm run lint:fix          # Fix ESLint issues
+npm run prettier:check    # Check Prettier formatting
+npm run prettier:write    # Format code with Prettier
+```
+
+
+## Useful Links 
+- [Backend Repository](https://github.com/Code-the-Dream-School/ii-practicum-team-3-back)
+- [Live app](https://fitnessappsadcat.netlify.app/)
+
+## Authors
+- [Alena Danilchenko](https://github.com/anelka777)
+- [Petr Kekalo](https://github.com/pkekalo)
